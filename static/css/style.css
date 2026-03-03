@@ -1,26 +1,16 @@
+/* Custom HabitFlow styles */
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    background-color: #f8f9fa; /* subtle grey */
 }
 
-header {
-    background: #333;
-    color: white;
-    padding: 1rem;
+.hero-title {
+    font-weight: 700;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-main {
-    padding: 2rem;
+.habit-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
