@@ -108,6 +108,93 @@ habitflow/
 └── requirements.txt
 ```
 
+## Day 2 – User Authentication (Registration, Login, Logout)
+
+### Overview
+Day 2 focused on implementing the core authentication system for HabitFlow. This included creating user registration, login, and logout functionality using Django’s built‑in authentication tools. These features establish the foundation for all user‑specific behaviour in the application, such as habit tracking, dashboards, and personalised data.
+
+---
+
+### Core Features Completed
+
+#### 1. User Registration (US01)
+A complete registration flow was implemented, allowing new users to create an account and begin using the application immediately.
+
+**Key steps:**
+- Added `/register/` route in `tracker/urls.py`.
+- Created a `register` view using Django’s `UserCreationForm`.
+- Implemented automatic login after successful registration using `login()`.
+- Added success and error messages using Django’s messages framework.
+- Created a Bootstrap‑styled `register.html` template.
+- Updated the navbar to include a working Register link.
+
+**Outcome:**  
+Users can now create an account, be logged in automatically, and return to the homepage with a confirmation message.
+
+---
+
+#### 2. User Login (US02)
+Returning users can now authenticate using a secure login form.
+
+**Key steps:**
+- Added `/login/` route.
+- Created `login_view` using Django’s `AuthenticationForm`.
+- Implemented session creation using `auth_login()`.
+- Added success/error messages for user feedback.
+- Created a Bootstrap‑styled `login.html` template.
+- Updated the navbar Login link to point to the new route.
+
+**Outcome:**  
+Users can log in with valid credentials and are redirected to the homepage with a confirmation message.
+
+---
+
+#### 3. User Logout (US03)
+Logout functionality completes the authentication loop.
+
+**Key steps:**
+- Added `/logout/` route.
+- Created `logout_view` using Django’s built‑in `logout()` function.
+- Added a success message and redirect to the homepage.
+- Updated the navbar Logout link to point to the new route.
+
+**Outcome:**  
+Authenticated users can log out cleanly, ending their session and returning to the homepage.
+
+---
+
+### 4. Dynamic Navbar Updates
+The navbar now responds to authentication state:
+
+- **Logged‑out users:** Login | Register  
+- **Logged‑in users:** Dashboard | Logout  
+
+This improves navigation clarity and prepares the UI for future features like the dashboard and habit management.
+
+---
+
+### Technical Summary
+- Implemented Django’s built‑in authentication forms (`UserCreationForm`, `AuthenticationForm`).
+- Used Django’s session management (`login`, `logout`, `auth_login`).
+- Integrated Bootstrap styling for consistent UI.
+- Added message alerts for all authentication actions.
+- Ensured clean URL routing through `tracker/urls.py`.
+
+---
+
+### Status at End of Day 2
+HabitFlow now has a fully functional authentication system, including:
+
+- Registration  
+- Login  
+- Logout  
+- Dynamic navigation  
+- User session handling  
+- Secure password hashing  
+- Persistent user storage in SQLite  
+
+This completes the foundation required for all user‑specific features coming in Day 3 and beyond.
+
 ### Front‑End Framework
 
 Bootstrap 5 is integrated via CDN to provide a modern, responsive UI from the outset. A custom `style.css` file is included for future overrides and branding, allowing HabitFlow to develop its own visual identity while retaining Bootstrap’s flexibility.
