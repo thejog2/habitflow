@@ -108,92 +108,150 @@ habitflow/
 └── requirements.txt
 ```
 
-## Day 2 – User Authentication (Registration, Login, Logout)
+## Day 2 – User Authentication & Profile System
 
 ### Overview
-Day 2 focused on implementing the core authentication system for HabitFlow. This included creating user registration, login, and logout functionality using Django’s built‑in authentication tools. These features establish the foundation for all user‑specific behaviour in the application, such as habit tracking, dashboards, and personalised data.
+Day 2 established HabitFlow’s full authentication flow and introduced the Profile model, which extends Django’s built‑in User model. Together, these features allow users to register, log in, log out, and have personalised data stored through a one‑to‑one Profile relationship. This forms the foundation for dashboards, habit tracking, and role‑based access.
 
 ---
 
-### Core Features Completed
+## Core Features Completed
 
-#### 1. User Registration (US01)
-A complete registration flow was implemented, allowing new users to create an account and begin using the application immediately.
+### 1. Registration (US01)
+Users can create an account through a Bootstrap‑styled registration form. Successful registration logs the user in automatically and redirects them to the homepage with a confirmation message.
 
-**Key steps:**
-- Added `/register/` route in `tracker/urls.py`.
-- Created a `register` view using Django’s `UserCreationForm`.
-- Implemented automatic login after successful registration using `login()`.
-- Added success and error messages using Django’s messages framework.
-- Created a Bootstrap‑styled `register.html` template.
-- Updated the navbar to include a working Register link.
-
-**Outcome:**  
-Users can now create an account, be logged in automatically, and return to the homepage with a confirmation message.
+**Key elements:**
+- `/register/` route  
+- `UserCreationForm`  
+- Automatic login  
+- Success/error messages  
 
 ---
 
-#### 2. User Login (US02)
-Returning users can now authenticate using a secure login form.
+### 2. Login (US02)
+Returning users authenticate through a secure login form.
 
-**Key steps:**
-- Added `/login/` route.
-- Created `login_view` using Django’s `AuthenticationForm`.
-- Implemented session creation using `auth_login()`.
-- Added success/error messages for user feedback.
-- Created a Bootstrap‑styled `login.html` template.
-- Updated the navbar Login link to point to the new route.
-
-**Outcome:**  
-Users can log in with valid credentials and are redirected to the homepage with a confirmation message.
+**Key elements:**
+- `/login/` route  
+- `AuthenticationForm`  
+- Session creation  
+- Success/error messages  
 
 ---
 
-#### 3. User Logout (US03)
-Logout functionality completes the authentication loop.
+### 3. Logout (US03)
+Users can end their session cleanly and return to the homepage.
 
-**Key steps:**
-- Added `/logout/` route.
-- Created `logout_view` using Django’s built‑in `logout()` function.
-- Added a success message and redirect to the homepage.
-- Updated the navbar Logout link to point to the new route.
-
-**Outcome:**  
-Authenticated users can log out cleanly, ending their session and returning to the homepage.
+**Key elements:**
+- `/logout/` route  
+- Django’s `logout()`  
+- Success message  
 
 ---
 
-### 4. Dynamic Navbar Updates
-The navbar now responds to authentication state:
+### 4. Dynamic Navbar
+The navbar now adapts based on authentication state:
 
-- **Logged‑out users:** Login | Register  
-- **Logged‑in users:** Dashboard | Logout  
+- **Logged out:** Login | Register  
+- **Logged in:** Dashboard | Logout  
+- **Admin users:** Dashboard | Admin Dashboard | Logout  
 
-This improves navigation clarity and prepares the UI for future features like the dashboard and habit management.
-
----
-
-### Technical Summary
-- Implemented Django’s built‑in authentication forms (`UserCreationForm`, `AuthenticationForm`).
-- Used Django’s session management (`login`, `logout`, `auth_login`).
-- Integrated Bootstrap styling for consistent UI.
-- Added message alerts for all authentication actions.
-- Ensured clean URL routing through `tracker/urls.py`.
+This improves navigation clarity and prepares the UI for future habit‑tracking features.
 
 ---
 
-### Status at End of Day 2
-HabitFlow now has a fully functional authentication system, including:
+## Profile Model & Role System
 
-- Registration  
-- Login  
-- Logout  
-- Dynamic navigation  
-- User session handling  
-- Secure password hashing  
-- Persistent user storage in SQLite  
+### Why the Profile model was added
+Django’s User model handles authentication but not app‑specific data. HabitFlow needs a place to store user roles and future personalisation settings. The Profile model provides this through a one‑to‑one relationship with User.
 
-This completes the foundation required for all user‑specific features coming in Day 3 and beyond.
+### What the Profile model includes
+- `user` — One‑to‑one link to Django User  
+- `role` — `"user"` or `"admin"`  
+
+### Automatic profile creation
+A Django signal ensures every new user automatically receives a Profile, guaranteeing `user.profile` always exists.
+
+---
+
+## User ↔ Profile Relationship Diagram
+
+```
++------------------+        1 : 1        +----------------------+
+|     User         |-------------------->|       Profile        |
++------------------+                     +----------------------+
+| id               |                     | id                   |
+| username         |                     | user_id (FK)         |
+| password         |                     | role                 |
+| email            |                     +----------------------+
++------------------+
+```
+
+This structure keeps authentication clean while allowing HabitFlow to grow with user‑specific features.
+
+---
+
+## Role‑Based Access
+
+HabitFlow uses a simple but scalable role system to control access to admin‑level features. While Django provides built‑in permissions (`is_staff`, `is_superuser`), the application requires its own role field to support future customisation and user‑specific behaviour. This is handled through the Profile model.
+
+### How roles work
+Each user has an associated Profile with a `role` field. The available roles are:
+- `"user"` — standard application access  
+- `"admin"` — elevated access to administrative tools  
+
+Roles are stored in the database and can be managed through Django’s admin interface.
+
+### How roles affect the UI
+The navigation bar adapts based on the user’s role:
+- Standard users see: **Dashboard | Logout**
+- Admin users see: **Dashboard | Admin Dashboard | Logout**
+
+The Admin Dashboard link appears only when:
+
+user.is_authenticated and user.profile.role == "admin"
+
+
+This ensures that administrative tools are visible only to authorised users.
+
+### Automatic profile creation
+A Django `post_save` signal ensures every new user automatically receives a Profile. This guarantees that `user.profile` always exists, allowing role checks to be performed safely throughout the application.
+
+### Why this approach was chosen
+Using a Profile‑based role system provides:
+- A clear separation between authentication (User) and application‑specific data (Profile)
+- Flexibility to add more roles or permissions in future
+- A consistent way to manage user‑level behaviour across the project
+
+This structure prepares HabitFlow for future enhancements such as analytics, moderation tools, or custom admin dashboards.
+
+
+---
+
+## Profile Signal Flow
+
+```mermaid
+flowchart TD
+    A[User Created] --> B[Django post_save Signal Fired]
+    B --> C[Profile.objects.create(user=user)]
+    C --> D[Profile Automatically Linked to User]
+```
+---
+
+## Technical Summary
+- Implemented registration, login, and logout using Django’s authentication system  
+- Added Bootstrap‑styled templates for all auth pages  
+- Integrated Django messages for user feedback  
+- Created Profile model with role field  
+- Added signals to auto‑create profiles  
+- Added admin‑only navigation using `user.profile.role`  
+- Updated navbar to maintain consistent button positions  
+
+---
+
+## Status at End of Day 2
+HabitFlow now has a complete authentication system and a scalable user‑profile architecture. This unlocks all user‑specific features planned for Day 3, including habit creation, dashboards, and personalised data handling.
+
 
 ### Front‑End Framework
 
