@@ -10,6 +10,7 @@ class Habit(models.Model):
     )
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    habit_type = models.CharField(max_length=10, choices=[('positive', 'Positive'), ('negative', 'Negative')], default='positive')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
