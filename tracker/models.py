@@ -25,3 +25,27 @@ class Habit(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.user.username})"
+
+
+class LogEntry(models.Model):
+    habit = models.ForeignKey(
+        Habit,
+        on_delete=models.CASCADE,
+        related_name="logs"
+    )
+    date = models.DateField()
+    completed = models.BooleanField(default=False)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["habit", "date"],
+                name="unique_log_per_habit_per_date"
+            )
+        ]
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.habit.name} on {self.date} — {'Done' if self.completed else 'Not done'}"
