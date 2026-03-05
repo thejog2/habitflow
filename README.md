@@ -107,6 +107,132 @@ Bootstrap‑powered layout with custom CSS.
 
 ---
 
+# 🖼️ Wireframes
+
+These low‑fidelity wireframes outline the planned layout for the key pages in HabitFlow. They focus on structure and user flow rather than styling, and serve as a bridge between the data model (Day 3) and the UI implementation (Day 4 onward).
+
+---
+
+## 🏠 Dashboard (Today’s Habits)
+
+```
++-----------------------------------------------------------+
+|                        DASHBOARD                          |
++-----------------------------------------------------------+
+|  Hello, {{ username }}                                    |
+|  Today: {{ date }}                                        |
++-----------------------------------------------------------+
+|  HABITS FOR TODAY                                         |
+|                                                           |
+|  [✓] Drink Water (Positive)        [Mark as Done]         |
+|  [ ] No Sugar (Negative)           [Mark as Avoided]      |
+|  [ ] Read 20 Minutes (Positive)    [Mark as Done]         |
+|                                                           |
++-----------------------------------------------------------+
+|  View All Habits | View Log History                       |
++-----------------------------------------------------------+
+```
+
+---
+
+## 📋 Habit List Page
+```
++-----------------------------------------------------------+
+|                      HABIT DETAILS                        |
++-----------------------------------------------------------+
+|  Habit: Drink Water                                       |
+|  Type: Positive                                           |
+|  Description: Drink 2L of water daily                     |
+|  Status: Active                                           |
++-----------------------------------------------------------+
+|  [Add Log Entry]                                          |
++-----------------------------------------------------------+
+|  LOG HISTORY                                              |
+|  -------------------------------------------------------- |
+|  Date        Completed   Notes                            |
+|  -------------------------------------------------------- |
+|  2026-03-04  Yes         Felt good today                  |
+|  2026-03-03  No          Forgot                           |
+|  2026-03-02  Yes         -                                |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+---
+
+## 📝 Log Entry Form
+```
++-----------------------------------------------------------+
+|                     ADD LOG ENTRY                         |
++-----------------------------------------------------------+
+|  Habit: Drink Water                                       |
+|                                                           |
+|  Date: [ 2026-03-05 ]                                     |
+|                                                           |
+|  Completed: [✓] Yes                                       |
+|                                                           |
+|  Notes:                                                   |
+|  -------------------------------------------------------- |
+|  |                                                      | |
+|  |                                                      | |
+|  -------------------------------------------------------- |
+|                                                           |
+|  [ Save Log Entry ]                                       |
++-----------------------------------------------------------+
+```
+
+---
+
+## ➕ Add Habit Form
+```
++-----------------------------------------------------------+
+|                        ADD HABIT                          |
++-----------------------------------------------------------+
+|  Name: [________________________]                         |
+|                                                           |
+|  Description:                                             |
+|  -------------------------------------------------------- |
+|  |                                                      | |
+|  |                                                      | |
+|  -------------------------------------------------------- |
+|                                                           |
+|  Habit Type: ( ) Positive   ( ) Negative                 |
+|                                                           |
+|  [ Create Habit ]                                         |
++-----------------------------------------------------------+
+```
+
+---
+
+## 📄 Habit Detail Page
+```
++-----------------------------------------------------------+
+|                      HABIT DETAILS                        |
++-----------------------------------------------------------+
+|  Habit: Drink Water                                       |
+|  Type: Positive                                           |
+|  Description: Drink 2L of water daily                     |
+|  Status: Active                                           |
++-----------------------------------------------------------+
+|  [Add Log Entry]                                          |
++-----------------------------------------------------------+
+|  LOG HISTORY                                              |
+|  -------------------------------------------------------- |
+|  Date        Completed   Notes                            |
+|  -------------------------------------------------------- |
+|  2026-03-04  Yes         Felt good today                  |
+|  2026-03-03  No          Forgot                           |
+|  2026-03-02  Yes         -                                |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+---
+
+These wireframes provide a clear visual guide for how users will navigate HabitFlow and interact with its core features. They outline the structure of each key page before any front‑end development begins, ensuring that the user experience is planned intentionally and aligns with the underlying data model. With these layouts established, the next step is to implement the Habit and LogEntry functionality in the UI, beginning with CRUD operations and dashboard interactions.
+
+---
+
 # 🧱 Data Model
 
 ## 👤 User & Profile
