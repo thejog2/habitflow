@@ -1,180 +1,124 @@
-# HabitFlow
+# 📘 HabitFlow — Habit Tracking Web Application
 
-HabitFlow is a full-stack Django web application designed to help users build, track, and maintain positive habits through daily logging, streaks, and progress insights.
+HabitFlow is a full‑stack Django web application designed to help users build, track, and maintain both positive and negative habits through daily logging, streaks, and progress insights. The project follows Agile methodology and is developed iteratively over a 7‑day sprint.
 
-## Project Overview
+---
 
-HabitFlow enables users to create habits, log daily progress, and view streaks and completion history. The project is built using Django, HTML, CSS, and JavaScript, and follows Agile methodology throughout development.
+# 📑 Table of Contents
 
-## Agile Planning
+1. Project Overview  
+2. Agile Planning  
+3. User Stories  
+4. Features  
+5. Data Model  
+   - User & Profile  
+   - Habit  
+   - LogEntry  
+   - ERD Diagram  
+6. Project Setup  
+7. Development Log  
+   - Day 1  
+   - Day 2  
+   - Day 3  
+8. Documentation  
+9. Tech Stack  
+10. Security Notes  
 
-This project follows an Agile methodology using GitHub Projects to manage user stories, tasks, and development progress. A Kanban-style board is used to track work through the stages: _To Do_, _In Progress_, _In Review_, and _Done_.
+---
+
+# 📘 Project Overview
+
+HabitFlow enables users to:
+
+- Create habits  
+- Track daily progress  
+- Log completions or avoidance  
+- View streaks and history  
+- Maintain both positive and negative habits  
+
+The application is built using Django, HTML, CSS, JavaScript, and Bootstrap.
+
+---
+
+# 🧭 Agile Planning
+
+HabitFlow is developed using Agile methodology with a Kanban‑style GitHub Project Board.
 
 **Project Board:**  
-[View the HabitFlow Project Board](https://github.com/users/thejog2/projects/7)
+https://github.com/users/thejog2/projects/7
+
+Work progresses through:
+
+- To Do  
+- In Progress  
+- In Review  
+- Done  
 
 ---
 
-## User Stories
+# 🧑‍💻 User Stories
 
 ### Authentication
-
-- **US01:** As a new user, I want to register an account so I can track my habits.
-- **US02:** As a returning user, I want to log in so I can access my habits.
-- **US03:** As a user, I want to log out so my account stays secure.
+- US01: Register an account  
+- US02: Log in  
+- US03: Log out  
 
 ### Habit Management
-
-- **US04:** As a user, I want to create habits so I can track them daily.
-- **US05:** As a user, I want to edit my habits so I can update their details.
-- **US06:** As a user, I want to delete habits I no longer track.
+- US04: Create habits  
+- US05: Edit habits  
+- US06: Delete habits  
 
 ### Daily Logging
-
-- **US07:** As a user, I want to log daily habit completion so I can track progress.
-- **US08:** As a user, I want to view my log history so I can see past performance.
+- US07: Log daily progress  
+- US08: View log history  
 
 ### Dashboard
-
-- **US09:** As a user, I want to view today’s habits so I know what to complete.
-- **US10:** As a user, I want to see streaks so I stay motivated.
+- US09: View today’s habits  
+- US10: View streaks  
 
 ### UX & Accessibility
-
-- **US11:** As a user, I want the site to be responsive so I can use it on any device.
-- **US12:** As a user with accessibility needs, I want the site to be usable with assistive tools.
+- US11: Responsive design  
+- US12: Accessibility support  
 
 ### Deployment
-
-- **US13:** As a developer, I want to deploy the project so users can access it online.
-
----
-
-## Task Management
-
-Each user story is broken down into smaller development tasks on the project board. Tasks move through the workflow:
-
-- **To Do** → **In Progress** → **In Review** → **Done**
-
-This ensures clear visibility of progress and supports iterative development throughout the project.
-
-## Project Setup
-
-The project was initialised using Django within a dedicated virtual environment.  
-The following steps were completed during initial setup:
-
-- Virtual environment created and activated
-- Django installed via pip
-- Django project created (`habitflow`)
-- Main application created (`tracker`)
-- Requirements file generated (`pip freeze > requirements.txt`)
-- Repository structure organised and committed to GitHub
-- GitHub Project board created and linked to the repository
-
-## Day 1: Project Foundation
-
-Day 1 focused on establishing a clean, scalable foundation for the application. This included setting up the Django environment, structuring the project, configuring templates and static files, and implementing a responsive front‑end framework.
-
-### Key Achievements
-
-- Created Django project (`habitflow`) and core application (`tracker`)
-- Set up a dedicated `templates/` directory at the project root
-- Added a global `static/` directory for front‑end assets
-- Implemented a base template with:
-  - Bootstrap 5 for layout and responsiveness
-  - A reusable navigation bar
-  - A message display area for Django’s messaging framework
-  - A central content block for page‑specific templates
-- Created and rendered the homepage (`home.html`)
-- Configured static file handling (`STATIC_URL` and `STATICFILES_DIRS`)
-- Verified the full request → view → template pipeline
-- Applied initial migrations to prepare the database
-- Committed the full Day 1 foundation to version control
-
-### Project Structure (as of Day 1)
-
-```
-habitflow/
-│
-├── habitflow/              # Project configuration and settings
-├── tracker/                # Main application
-├── templates/              # Global HTML templates
-│     ├── base.html
-│     └── home.html
-├── static/                 # Static assets (CSS, JS, images)
-│     └── css/
-│          └── style.css
-├── manage.py
-└── requirements.txt
-```
-
-## Day 2 – User Authentication & Profile System
-
-### Overview
-Day 2 established HabitFlow’s full authentication flow and introduced the Profile model, which extends Django’s built‑in User model. Together, these features allow users to register, log in, log out, and have personalised data stored through a one‑to‑one Profile relationship. This forms the foundation for dashboards, habit tracking, and role‑based access.
+- US13: Deploy the project  
 
 ---
 
-## Core Features Completed
+# ⭐ Features
 
-### 1. Registration (US01)
-Users can create an account through a Bootstrap‑styled registration form. Successful registration logs the user in automatically and redirects them to the homepage with a confirmation message.
+### ✔ User Authentication  
+Registration, login, logout, and dynamic navigation.
 
-**Key elements:**
-- `/register/` route  
-- `UserCreationForm`  
-- Automatic login  
-- Success/error messages  
+### ✔ Profile System  
+Each user has a Profile with a role (`user` or `admin`).
 
----
+### ✔ Habit Tracking  
+Users can create positive or negative habits.
 
-### 2. Login (US02)
-Returning users authenticate through a secure login form.
+### ✔ Daily Logging  
+Users can log completion or avoidance for each habit.
 
-**Key elements:**
-- `/login/` route  
-- `AuthenticationForm`  
-- Session creation  
-- Success/error messages  
+### ✔ Admin Tools  
+Admin users see additional navigation options.
+
+### ✔ Responsive UI  
+Bootstrap‑powered layout with custom CSS.
 
 ---
 
-### 3. Logout (US03)
-Users can end their session cleanly and return to the homepage.
+# 🧱 Data Model
 
-**Key elements:**
-- `/logout/` route  
-- Django’s `logout()`  
-- Success message  
+## 👤 User & Profile
 
----
+Django’s User model handles authentication.  
+A Profile extends it with:
 
-### 4. Dynamic Navbar
-The navbar now adapts based on authentication state:
+- `role` — `"user"` or `"admin"`
 
-- **Logged out:** Login | Register  
-- **Logged in:** Dashboard | Logout  
-- **Admin users:** Dashboard | Admin Dashboard | Logout  
+A signal automatically creates a Profile when a User is created.
 
-This improves navigation clarity and prepares the UI for future habit‑tracking features.
-
----
-
-## Profile Model & Role System
-
-### Why the Profile model was added
-Django’s User model handles authentication but not app‑specific data. HabitFlow needs a place to store user roles and future personalisation settings. The Profile model provides this through a one‑to‑one relationship with User.
-
-### What the Profile model includes
-- `user` — One‑to‑one link to Django User  
-- `role` — `"user"` or `"admin"`  
-
-### Automatic profile creation
-A Django signal ensures every new user automatically receives a Profile, guaranteeing `user.profile` always exists.
-
----
-
-## User ↔ Profile Relationship Diagram
+### User ↔ Profile Diagram
 
 ```
 +------------------+        1 : 1        +----------------------+
@@ -187,95 +131,154 @@ A Django signal ensures every new user automatically receives a Profile, guarant
 +------------------+
 ```
 
-This structure keeps authentication clean while allowing HabitFlow to grow with user‑specific features.
+---
+
+## 🌱 Habit Model
+
+Represents a behaviour the user wants to track.
+
+Key fields:
+
+- `name`  
+- `description`  
+- `habit_type` — `"positive"` or `"negative"`  
+- `is_active`  
+- `user` (FK)  
+- Unique constraint: one habit name per user  
 
 ---
 
-## Role‑Based Access
+## 📅 LogEntry Model
 
-HabitFlow uses a simple but scalable role system to control access to admin‑level features. While Django provides built‑in permissions (`is_staff`, `is_superuser`), the application requires its own role field to support future customisation and user‑specific behaviour. This is handled through the Profile model.
+Represents a single day’s progress for a habit.
 
-### How roles work
-Each user has an associated Profile with a `role` field. The available roles are:
-- `"user"` — standard application access  
-- `"admin"` — elevated access to administrative tools  
+Key fields:
 
-Roles are stored in the database and can be managed through Django’s admin interface.
+- `habit` (FK)  
+- `date`  
+- `completed`  
+- `notes`  
+- Unique constraint: one log per habit per date  
 
-### How roles affect the UI
-The navigation bar adapts based on the user’s role:
-- Standard users see: **Dashboard | Logout**
-- Admin users see: **Dashboard | Admin Dashboard | Logout**
+### Behaviour Logic
 
-The Admin Dashboard link appears only when:
-
-user.is_authenticated and user.profile.role == "admin"
-
-
-This ensures that administrative tools are visible only to authorised users.
-
-### Automatic profile creation
-A Django `post_save` signal ensures every new user automatically receives a Profile. This guarantees that `user.profile` always exists, allowing role checks to be performed safely throughout the application.
-
-### Why this approach was chosen
-Using a Profile‑based role system provides:
-- A clear separation between authentication (User) and application‑specific data (Profile)
-- Flexibility to add more roles or permissions in future
-- A consistent way to manage user‑level behaviour across the project
-
-This structure prepares HabitFlow for future enhancements such as analytics, moderation tools, or custom admin dashboards.
-
+- Positive habits → `completed=True` means *did the habit*  
+- Negative habits → `completed=True` means *avoided the habit*  
 
 ---
 
-## Profile Signal Flow
+## 🗺️ ERD Diagram
 
-```mermaid
-flowchart TD
-    A[User Created] --> B[Django post_save Signal Fired]
-    B --> C[Profile.objects.create(user=user)]
-    C --> D[Profile Automatically Linked to User]
-```
+### Relationships
+
+- User → Profile (1:1)  
+- User → Habit (1:M)  
+- Habit → LogEntry (1:M)  
+
+### Relationship Table
+
+| Model    | Relationship | Target     | Cardinality | Notes |
+|----------|-------------|------------|-------------|-------|
+| User     | has one     | Profile    | 1 → 1       | Auto‑created |
+| User     | has many    | Habit      | 1 → many    | Each habit belongs to a user |
+| Habit    | has many    | LogEntry   | 1 → many    | One log per date |
+| LogEntry | belongs to  | Habit      | many → 1    | Cascade delete |
+| Profile  | belongs to  | User       | 1 → 1       | Extends user |
+
 ---
 
-## Technical Summary
-- Implemented registration, login, and logout using Django’s authentication system  
-- Added Bootstrap‑styled templates for all auth pages  
-- Integrated Django messages for user feedback  
-- Created Profile model with role field  
-- Added signals to auto‑create profiles  
-- Added admin‑only navigation using `user.profile.role`  
-- Updated navbar to maintain consistent button positions  
+# 🛠 Project Setup
+
+- Virtual environment created  
+- Django installed  
+- Project created (`habitflow`)  
+- Main app created (`tracker`)  
+- Requirements file generated  
+- GitHub repo + project board created  
+- Templates and static directories configured  
 
 ---
 
-## Status at End of Day 2
-HabitFlow now has a complete authentication system and a scalable user‑profile architecture. This unlocks all user‑specific features planned for Day 3, including habit creation, dashboards, and personalised data handling.
+# 📅 Development Log
 
+This section summarises daily progress without overwhelming the main README.
 
-### Front‑End Framework
+---
 
-Bootstrap 5 is integrated via CDN to provide a modern, responsive UI from the outset. A custom `style.css` file is included for future overrides and branding, allowing HabitFlow to develop its own visual identity while retaining Bootstrap’s flexibility.
+## Day 1 — Project Foundation
 
-## Documentation
+- Created Django project and core app  
+- Set up templates and static directories  
+- Implemented base template with Bootstrap  
+- Added homepage  
+- Verified routing and template rendering  
+- Initial migrations completed  
 
-Additional planning and assessment documents are stored in the `/docs` folder:
+---
 
-- [Habitflow Project Timeline](docs/Habitflow%20Project%20Timeline.docx)
-- [Habitflow Project Marking Criteria](docs/Habitflow%20Project%20Marking%20Criteria.docx)
+## Day 2 — Authentication & Profile System
 
-More documentation will be added as the project progresses.
+### Completed
 
-## Tech Stack
+- Registration, login, logout  
+- Bootstrap‑styled forms  
+- Django messages  
+- Dynamic navbar  
+- Profile model with role field  
+- Auto‑create Profile signal  
+- Admin‑only navigation  
 
-- Django (Python)
-- HTML5, CSS3, JavaScript
-- Bootstrap (optional)
-- PostgreSQL (Heroku)
-- Git & GitHub
-- Heroku for deployment
+### Profile Refactor (Important)
 
-### Security Notes
+Originally, Profile was inside `tracker`.  
+It was moved to `accounts` to maintain a clean separation:
 
-During development, the Django SECRET_KEY is stored in settings.py.  
-Before deployment, this will be moved to environment variables using an env.py file and Heroku config vars.
+- `accounts` → authentication + profiles  
+- `tracker` → habits + logs  
+
+This improves maintainability and aligns with Django best practices.
+
+---
+
+## Day 3 — Database Schema & Models
+
+### Completed
+
+- Habit model  
+- LogEntry model  
+- Positive/negative habit support  
+- Unique constraints  
+- Admin registration  
+- ERD diagram  
+- README updates  
+- Architecture refinement (Profile moved to accounts)  
+
+---
+
+# 📚 Documentation
+
+Stored in `/docs`:
+
+- HabitFlow Project Timeline  
+- HabitFlow Marking Criteria  
+
+---
+
+# 🧰 Tech Stack
+
+- Django  
+- HTML, CSS, JavaScript  
+- Bootstrap  
+- PostgreSQL (Heroku)  
+- Git & GitHub  
+
+---
+
+# 🔐 Security Notes
+
+During development, the Django `SECRET_KEY` is stored in `settings.py`.  
+Before deployment, it will be moved to environment variables using:
+
+- `env.py` locally  
+- Heroku config vars in production  
+
