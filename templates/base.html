@@ -37,11 +37,6 @@
                             <a class="nav-link" href="{% url 'habit_list' %}">My Habits</a>
                         </li>
 
-                        <!-- Add Habit -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'habit_create' %}">Add Habit</a>
-                        </li>
-
                         <!-- Admin Dashboard (only for admins) -->
                         {% if user.profile.role == "admin" %}
                         <li class="nav-item">
@@ -73,6 +68,7 @@
             </div>
         </nav>
     </header>
+
 
 
 
