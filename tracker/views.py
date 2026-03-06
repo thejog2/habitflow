@@ -12,6 +12,9 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import HabitForm
 from django.views.generic import DetailView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
+
 
 def home(request):
     return render(request, 'home.html')
@@ -80,7 +83,7 @@ class HabitCreateView(LoginRequiredMixin, CreateView):
         return redirect(self.success_url)
     
 
-    class HabitDetailView(LoginRequiredMixin, DetailView):
+class HabitDetailView(LoginRequiredMixin, DetailView):
     model = Habit
     template_name = "habit_detail.html"
     context_object_name = "habit"
@@ -88,3 +91,32 @@ class HabitCreateView(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         # Prevent users from accessing habits that aren't theirs
         return Habit.objects.filter(user=self.request.user)
+    
+
+class HabitUpdateView(LoginRequiredMixin, UpdateView):
+    model = Habit
+    form_class = HabitForm
+    template_name = "habit_form.html"
+    success_url = reverse_lazy("habit_list")
+
+    def get_queryset(self):
+        # Only allow editing of the user's own habits
+        return Habit.objects.filter(user=self.request.user)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Habit updated successfully!")
+        return super().form_valid(form)
+    
+
+class HabitDeleteView(LoginRequiredMixin, DeleteView):
+    model = Habit
+    template_name = "habit_confirm_delete.html"
+    success_url = reverse_lazy("habit_list")
+
+    def get_queryset(self):
+        # Only allow deleting the user's own habits
+        return Habit.objects.filter(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Habit deleted successfully!")
+        return super().delete(request, *args, **kwargs)

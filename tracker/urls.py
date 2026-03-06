@@ -10,4 +10,6 @@ urlpatterns = [
     path('habits/', HabitListView.as_view(), name='habit_list'),
     path('habits/create/', views.HabitCreateView.as_view(), name='habit_create'),
     path('habits/<int:pk>/', views.HabitDetailView.as_view(), name='habit_detail'),
+    path('habits/<int:pk>/edit/', views.HabitUpdateView.as_view(), name='habit_edit'),
+    path('habits/<int:pk>/delete/', views.HabitDeleteView.as_view(), name='habit_delete'),
 ]
