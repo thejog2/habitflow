@@ -381,6 +381,37 @@ This improves maintainability and aligns with Django best practices.
 
 ---
 
+## Day 4 — CRUD Functionality for Habits
+
+### Overview
+Today focused on implementing full CRUD (Create, Read, Update, Delete) functionality for user habits. All habit operations are now fully functional, secure, and restricted to authenticated users only. This ensures that each user can manage their own habits without accessing or modifying data belonging to others.
+
+
+### Habit CRUD Features
+
+#### ✔ Create Habits
+Users can create new habits using a dedicated form. Each habit is automatically assigned to the logged‑in user, ensuring correct ownership.
+
+#### ✔ Read Habits
+The Habit List page displays all active habits belonging to the current user. A Habit Detail page provides additional information and links to edit or delete the habit.
+
+#### ✔ Update Habits
+Users can edit their existing habits using the same form template used for creation. A success message confirms the update.
+
+#### ✔ Delete Habits
+Users can delete habits through a confirmation page. A success message confirms the deletion, and the user is redirected back to the Habit List.
+
+
+### Access Control & Security
+
+To ensure users can only view or modify their own habits, each class‑based view overrides `get_queryset()`:
+
+```python
+def get_queryset(self):
+    return Habit.objects.filter(user=self.request.user)
+```
+---
+
 # 📚 Documentation
 
 Stored in `/docs`:
