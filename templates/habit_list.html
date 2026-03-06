@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Habits</h1>
+
+<a href="{% url 'habit_create' %}" class="btn btn-primary mb-3">Add New Habit</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for habit in habits %}
+        <tr>
+            <td>{{ habit.name }}</td>
+            <td>{{ habit.habit_type }}</td>
+            <td>{{ habit.is_active|yesno:"Active,Archived" }}</td>
+            <td>
+                <a href="{% url 'habit_detail' habit.pk %}">View</a> |
+                <a href="{% url 'habit_edit' habit.pk %}">Edit</a> |
+                <a href="{% url 'habit_delete' habit.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">You have no habits yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
