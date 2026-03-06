@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('habits/', HabitListView.as_view(), name='habit_list'),
     path('habits/create/', views.HabitCreateView.as_view(), name='habit_create'),
+    path('habits/<int:pk>/', views.HabitDetailView.as_view(), name='habit_detail'),
 ]

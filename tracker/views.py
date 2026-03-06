@@ -11,6 +11,7 @@ from .models import Habit
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import HabitForm
+from django.views.generic import DetailView
 
 def home(request):
     return render(request, 'home.html')
@@ -77,3 +78,13 @@ class HabitCreateView(LoginRequiredMixin, CreateView):
         habit.save()
         messages.success(self.request, "Habit created successfully!")
         return redirect(self.success_url)
+    
+
+    class HabitDetailView(LoginRequiredMixin, DetailView):
+    model = Habit
+    template_name = "habit_detail.html"
+    context_object_name = "habit"
+
+    def get_queryset(self):
+        # Prevent users from accessing habits that aren't theirs
+        return Habit.objects.filter(user=self.request.user)

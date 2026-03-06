@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ habit.name }}</h1>
+
+<p><strong>Type:</strong> {{ habit.habit_type }}</p>
+<p><strong>Description:</strong> {{ habit.description }}</p>
+<p><strong>Status:</strong> {{ habit.is_active|yesno:"Active,Archived" }}</p>
+
+<hr>
+
+<a href="{% url 'habit_edit' habit.pk %}" class="btn btn-primary">Edit Habit</a>
+<a href="{% url 'habit_delete' habit.pk %}" class="btn btn-danger">Delete Habit</a>
+<a href="{% url 'habit_list' %}" class="btn btn-secondary">Back to Habits</a>
+{% endblock %}
