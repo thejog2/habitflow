@@ -20,6 +20,7 @@ HabitFlow is a full‑stack Django web application designed to help users build,
    - Day 1  
    - Day 2  
    - Day 3  
+   - Day 4
 8. Documentation  
 9. Tech Stack  
 10. Security Notes  

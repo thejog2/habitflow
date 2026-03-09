@@ -49,3 +49,20 @@ class LogEntry(models.Model):
 
     def __str__(self):
         return f"{self.habit.name} on {self.date} — {'Done' if self.completed else 'Not done'}"
+
+
+class LogEntry(models.Model):
+    habit = models.ForeignKey(
+        Habit,
+        on_delete=models.CASCADE,
+        related_name="logs"
+    )
+    date = models.DateField()
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-date"]
+        unique_together = ("habit", "date")
+
+    def __str__(self):
+        return f"{self.habit.name} — {self.date}"
