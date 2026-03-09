@@ -1,5 +1,6 @@
 from django import forms
-from .models import Habit
+from .models import Habit, LogEntry
+from django.utils import timezone
 
 class HabitForm(forms.ModelForm):
     class Meta:
