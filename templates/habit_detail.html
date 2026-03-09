@@ -23,13 +23,27 @@
 <hr>
 
 <h3 class="mt-4">
-    Log Entries ({{ habit.logs.count }})
+    Log Entries ({{ logs.count }})
 </h3>
+
+<!-- Date Filter Form -->
+<form method="get" class="mb-3 d-flex align-items-end gap-2">
+    <div>
+        <label for="date" class="form-label">Filter by date:</label>
+        <input type="date" id="date" name="date" class="form-control"
+               value="{{ filter_date }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Apply</button>
+
+    {% if filter_date %}
+        <a href="{% url 'habit_detail' habit.pk %}" class="btn btn-secondary">Clear</a>
+    {% endif %}
+</form>
 
 <a href="{% url 'log_add' habit.pk %}" class="btn btn-success mb-3">Add Log Entry</a>
 
 <ul class="list-group mb-4">
-    {% for log in habit.logs.all %}
+    {% for log in logs %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
                 <strong>{{ log.date }}</strong><br>
@@ -41,7 +55,7 @@
             </div>
         </li>
     {% empty %}
-        <p>No logs yet. Add your first one!</p>
+        <p>No logs found for this date.</p>
     {% endfor %}
 </ul>
 

@@ -86,13 +86,28 @@ class HabitCreateView(LoginRequiredMixin, CreateView):
 class HabitDetailView(LoginRequiredMixin, DetailView):
     model = Habit
     template_name = "habit_detail.html"
-    context_object_name = "habit"
 
     def get_queryset(self):
-        # Prevent users from accessing habits that aren't theirs
         return Habit.objects.filter(user=self.request.user)
-    
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        habit = self.object
+
+        # Get the date filter from the query string
+        filter_date = self.request.GET.get("date")
+
+        if filter_date:
+            logs = habit.logs.filter(date=filter_date)
+        else:
+            logs = habit.logs.all()
+
+        context["logs"] = logs
+        context["filter_date"] = filter_date
+
+        return context
+
+    
 class HabitUpdateView(LoginRequiredMixin, UpdateView):
     model = Habit
     form_class = HabitForm
