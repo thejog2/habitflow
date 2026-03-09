@@ -1,12 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ view.object|default:"Add Log Entry" }}</h2>
 
-<form method="post">
+<h2 class="mb-4">
+    {% if view.object %}
+        Edit Log Entry
+    {% else %}
+        Add Log Entry
+    {% endif %}
+</h2>
+
+<form method="post" class="mb-4">
     {% csrf_token %}
     {{ form.as_p }}
+
     <button type="submit" class="btn btn-primary">Save</button>
+
+    {% if view.object %}
+        <!-- Cancel button for editing -->
+        <a href="{% url 'habit_detail' view.object.habit.pk %}" class="btn btn-secondary">Cancel</a>
+    {% else %}
+        <!-- Cancel button for creating -->
+        <a href="{% url 'habit_detail' view.habit.pk %}" class="btn btn-secondary">Cancel</a>
+    {% endif %}
 </form>
 
 {% endblock %}
