@@ -11,16 +11,8 @@ HabitFlow is a full‑stack Django web application designed to help users build,
 3. User Stories  
 4. Features  
 5. Data Model  
-   - User & Profile  
-   - Habit  
-   - LogEntry  
-   - ERD Diagram  
 6. Project Setup  
 7. Development Log  
-   - Day 1  
-   - Day 2  
-   - Day 3  
-   - Day 4
 8. Documentation  
 9. Tech Stack  
 10. Security Notes  
@@ -43,7 +35,7 @@ The application is built using Django, HTML, CSS, JavaScript, and Bootstrap.
 
 # 🧭 Agile Planning
 
-HabitFlow is developed using Agile methodology with a Kanban‑style GitHub Project Board.
+HabitFlow is developed using Agile methodology with a Kanban‑style GitHub Project Board:
 
 **Project Board:**  
 https://github.com/users/thejog2/projects/7
@@ -328,61 +320,45 @@ Key fields:
 
 # 📅 Development Log
 
-This section summarises daily progress without overwhelming the main README.
-
----
-
 ## Day 1 — Project Foundation
-
 - Created Django project and core app  
 - Set up templates and static directories  
 - Implemented base template with Bootstrap  
 - Added homepage  
-- Verified routing and template rendering  
 - Initial migrations completed  
 
----
-
 ## Day 2 — Authentication & Profile System
-
-### Completed
-
 - Registration, login, logout  
 - Bootstrap‑styled forms  
 - Django messages  
 - Dynamic navbar  
-- Profile model with role field  
-- Auto‑create Profile signal  
+- Profile model + auto‑create signal  
 - Admin‑only navigation  
-
-### Profile Refactor (Important)
-
-Originally, Profile was inside `tracker`.  
-It was moved to `accounts` to maintain a clean separation:
-
-- `accounts` → authentication + profiles  
-- `tracker` → habits + logs  
-
-This improves maintainability and aligns with Django best practices.
-
----
+- Profile moved to `accounts` for cleaner architecture  
 
 ## Day 3 — Database Schema & Models
-
-### Completed
-
 - Habit model  
 - LogEntry model  
-- Positive/negative habit support  
 - Unique constraints  
 - Admin registration  
 - ERD diagram  
 - README updates  
-- Architecture refinement (Profile moved to accounts)  
+
+## Day 4 — Habit CRUD Functionality
+- Full CRUD for habits  
+- Access control via `get_queryset()`  
+- Success messages  
+- Habit Detail page implemented  
+
+## Day 5 — Logging System
+- LogEntry CRUD (create, edit, delete)  
+- Integrated logs into Habit Detail page  
+- Date filtering  
+- Validation for future dates + duplicates  
+- Polished templates  
+- README updated  
 
 ---
-
-## Day 4 — CRUD Functionality for Habits
 
 ### Overview
 Today focused on implementing full CRUD (Create, Read, Update, Delete) functionality for user habits. All habit operations are now fully functional, secure, and restricted to authenticated users only. This ensures that each user can manage their own habits without accessing or modifying data belonging to others.
