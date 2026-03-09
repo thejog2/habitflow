@@ -1,19 +1,15 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from .models import Habit
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
-from .forms import HabitForm
-from django.views.generic import DetailView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.urls import reverse, reverse_lazy
+from django.utils import timezone
+
+from .models import Habit, LogEntry
+from .forms import HabitForm, LogEntryForm
 
 
 def home(request):
@@ -140,11 +136,16 @@ class HabitDeleteView(LoginRequiredMixin, DeleteView):
 class CreateLogEntryView(LoginRequiredMixin, CreateView):
     model = LogEntry
     form_class = LogEntryForm
-    template_name = "tracker/logentry_form.html"
+    template_name = "logentry_form.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.habit = get_object_or_404(Habit, pk=kwargs["habit_pk"], user=request.user)
         return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["habit"] = self.habit
+        return kwargs
 
     def form_valid(self, form):
         form.instance.habit = self.habit
@@ -155,13 +156,19 @@ class CreateLogEntryView(LoginRequiredMixin, CreateView):
         return reverse("habit_detail", kwargs={"pk": self.habit.pk})
 
 
+
 class UpdateLogEntryView(LoginRequiredMixin, UpdateView):
     model = LogEntry
     form_class = LogEntryForm
-    template_name = "tracker/logentry_form.html"
+    template_name = "logentry_form.html"
 
     def get_queryset(self):
         return LogEntry.objects.filter(habit__user=self.request.user)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["habit"] = self.object.habit
+        return kwargs
 
     def form_valid(self, form):
         messages.success(self.request, "Log entry updated successfully.")
@@ -171,9 +178,10 @@ class UpdateLogEntryView(LoginRequiredMixin, UpdateView):
         return reverse("habit_detail", kwargs={"pk": self.object.habit.pk})
 
 
+
 class DeleteLogEntryView(LoginRequiredMixin, DeleteView):
     model = LogEntry
-    template_name = "tracker/logentry_confirm_delete.html"
+    template_name = "logentry_confirm_delete.html"
 
     def get_queryset(self):
         return LogEntry.objects.filter(habit__user=self.request.user)
