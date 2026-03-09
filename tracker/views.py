@@ -120,3 +120,52 @@ class HabitDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Habit deleted successfully!")
         return super().delete(request, *args, **kwargs)
+    
+
+class CreateLogEntryView(LoginRequiredMixin, CreateView):
+    model = LogEntry
+    form_class = LogEntryForm
+    template_name = "tracker/logentry_form.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.habit = get_object_or_404(Habit, pk=kwargs["habit_pk"], user=request.user)
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.habit = self.habit
+        messages.success(self.request, "Log entry created successfully.")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("habit_detail", kwargs={"pk": self.habit.pk})
+
+
+class UpdateLogEntryView(LoginRequiredMixin, UpdateView):
+    model = LogEntry
+    form_class = LogEntryForm
+    template_name = "tracker/logentry_form.html"
+
+    def get_queryset(self):
+        return LogEntry.objects.filter(habit__user=self.request.user)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Log entry updated successfully.")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("habit_detail", kwargs={"pk": self.object.habit.pk})
+
+
+class DeleteLogEntryView(LoginRequiredMixin, DeleteView):
+    model = LogEntry
+    template_name = "tracker/logentry_confirm_delete.html"
+
+    def get_queryset(self):
+        return LogEntry.objects.filter(habit__user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Log entry deleted successfully.")
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("habit_detail", kwargs={"pk": self.object.habit.pk})

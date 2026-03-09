@@ -11,6 +11,6 @@ class HabitAdmin(admin.ModelAdmin):
 
 @admin.register(LogEntry)
 class LogEntryAdmin(admin.ModelAdmin):
-    list_display = ("habit", "date", "completed", "created_at")
-    list_filter = ("completed", "date")
+    list_display = ("habit", "date", "notes")
+    list_filter = ("date",)
     search_fields = ("habit__name",)
