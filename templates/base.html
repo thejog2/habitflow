@@ -44,6 +44,13 @@
                         </li>
                         {% endif %}
 
+                        <!-- Logged In Badge -->
+                        <li class="nav-item d-flex align-items-center">
+                            <span class="badge bg-success me-2">
+                                Logged in as {{ user.username }}
+                            </span>
+                        </li>
+
                         <!-- Logout -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
