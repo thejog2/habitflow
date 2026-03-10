@@ -358,6 +358,102 @@ Key fields:
 - Polished templates  
 - README updated  
 
+## Day 6 — Dashboard & Streak Logic
+
+Today focused on transforming HabitFlow from a collection of CRUD pages into a true habit‑tracking experience. The new **Dashboard** provides users with a clear, actionable view of their daily habits, along with streak tracking and quick‑log functionality. This marks a major milestone in the project, as users can now interact with their habits in a meaningful, daily‑driven way.
+
+---
+
+### Dashboard Overview
+
+The Dashboard is now the central hub for logged‑in users. It displays:
+
+- Today’s date  
+- All active habits for the user  
+- A “Completed Today” badge for habits already logged  
+- Quick‑log buttons for one‑click daily tracking  
+- Streak counters showing how many consecutive days each habit has been completed  
+
+This page is designed for speed and clarity — users can log their progress in seconds without navigating through multiple pages.
+
+---
+
+### Quick‑Log Functionality
+
+To streamline daily tracking, each habit now includes a one‑click action:
+
+- **Positive habits:** “Mark as Done”  
+- **Negative habits:** “Mark as Avoided”  
+
+When clicked, HabitFlow:
+
+1. Creates a LogEntry for today  
+2. Prevents duplicate logs  
+3. Redirects back to the dashboard  
+4. Displays a success message  
+
+This feature dramatically improves usability and encourages consistent habit tracking.
+
+---
+
+### Streak Calculation Logic
+
+Streaks show how many consecutive days a habit has been completed (or avoided, for negative habits).  
+The logic works the same for both habit types — it simply checks whether a log exists for each day going backwards from today.
+
+**How streaks work:**
+
+- If a user logged the habit today → streak starts at 1  
+- If they also logged it yesterday → streak becomes 2  
+- If there’s a gap → streak resets  
+- No logs → streak is 0  
+
+This gives users a clear sense of momentum and progress.
+
+---
+
+### Streak Calculation Pseudocode
+
+```
+streak = 0
+current_date = today
+
+while log exists for habit on current_date:
+    streak += 1
+    current_date = current_date - 1 day
+
+return streak
+```
+
+This simple loop ensures streaks are accurate, predictable, and easy to maintain.
+
+---
+
+### Technical Notes
+
+- Added `utils.py` with helper functions:
+  - `has_logged_today(habit)`
+  - `get_today_log(habit)`
+  - `calculate_streak(habit)`
+- Added `dashboard` view and template  
+- Added `quick_log` view and URL  
+- Updated navbar with a Dashboard link  
+- Ensured all dashboard logic is restricted to authenticated users  
+
+---
+
+### Summary
+
+Day 6 introduced HabitFlow’s most important user‑facing feature: the Dashboard.  
+Users can now:
+
+- See today’s habits  
+- Log progress instantly  
+- Track streaks  
+- Build consistency  
+
+This completes the core functionality of the habit‑tracking experience and sets the stage for final polish and documentation on Day 7.
+
 ---
 
 ### Overview
