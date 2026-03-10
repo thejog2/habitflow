@@ -10,40 +10,48 @@
 
 <h3>Your Habits for Today</h3>
 
-{% if habits_today %}
-    <ul class="list-group mb-4">
-        {% for habit in habits_today %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                    <strong>{{ habit.name }}</strong><br>
-                    <small>{{ habit.habit_type|title }} habit</small>
-                </div>
+{% for item in habits_today %}
+{% with habit=item.habit %}
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+        <strong>{{ habit.name }}</strong><br>
+        <small>{{ habit.habit_type|title }} habit</small>
+    </div>
 
-                <div>
-                    <!-- Quick log buttons will go here -->
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>You have no active habits today.</p>
-{% endif %}
+    <div>
+        {% if item.logged_today %}
+        <span class="badge bg-success">Completed Today</span>
+        {% else %}
+        <a href="{% url 'quick_log' item.habit.pk %}" class="btn btn-sm btn-primary">
+            {% if item.habit.habit_type == "positive" %}
+            Mark as Done
+            {% else %}
+            Mark as Avoided
+            {% endif %}
+        </a>
+        {% endif %}
+
+    </div>
+</li>
+{% endwith %}
+{% endfor %}
+
 
 <hr>
 
 <h3>Your Streaks</h3>
 
 {% if streaks %}
-    <ul class="list-group">
-        {% for habit, streak in streaks.items %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ habit.name }}</span>
-                <span>{{ streak }} day streak</span>
-            </li>
-        {% endfor %}
-    </ul>
+<ul class="list-group">
+    {% for habit, streak in streaks.items %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ habit.name }}</span>
+        <span>{{ streak }} day streak</span>
+    </li>
+    {% endfor %}
+</ul>
 {% else %}
-    <p>No streak data yet.</p>
+<p>No streak data yet.</p>
 {% endif %}
 
 {% endblock %}

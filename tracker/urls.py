@@ -16,4 +16,5 @@ urlpatterns = [
     path("log/<int:pk>/edit/", views.UpdateLogEntryView.as_view(), name="log_edit"),
     path("log/<int:pk>/delete/", views.DeleteLogEntryView.as_view(), name="log_delete"),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('habit/<int:pk>/quick-log/', views.quick_log, name='quick_log'),
 ]

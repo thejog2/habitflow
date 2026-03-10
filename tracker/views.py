@@ -220,3 +220,24 @@ def dashboard(request):
     }
 
     return render(request, "dashboard.html", context)
+
+
+@login_required
+def quick_log(request, pk):
+    habit = get_object_or_404(Habit, pk=pk, user=request.user)
+    today = timezone.now().date()
+
+    # Prevent duplicate logs
+    if LogEntry.objects.filter(habit=habit, date=today).exists():
+        messages.info(request, "You've already logged this habit today.")
+        return redirect('dashboard')
+
+    # Create the log entry
+    LogEntry.objects.create(
+        habit=habit,
+        date=today,
+        notes=f"Quick logged on {today}"
+    )
+
+    messages.success(request, f"{habit.name} logged for today!")
+    return redirect('dashboard')
