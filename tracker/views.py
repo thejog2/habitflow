@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .models import Habit, LogEntry
 from .forms import HabitForm, LogEntryForm
@@ -192,3 +193,20 @@ class DeleteLogEntryView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("habit_detail", kwargs={"pk": self.object.habit.pk})
+
+
+@login_required
+def dashboard(request):
+    today = timezone.now().date()
+
+    # We will fill these in shortly
+    habits_today = []
+    streaks = {}
+
+    context = {
+        "today": today,
+        "habits_today": habits_today,
+        "streaks": streaks,
+    }
+
+    return render(request, "dashboard.html", context)

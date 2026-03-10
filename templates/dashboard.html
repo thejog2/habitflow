@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Dashboard</h1>
+
+<p>Today: {{ today }}</p>
+
+<hr>
+
+<h3>Your Habits for Today</h3>
+
+{% if habits_today %}
+    <ul class="list-group mb-4">
+        {% for habit in habits_today %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ habit.name }}</strong><br>
+                    <small>{{ habit.habit_type|title }} habit</small>
+                </div>
+
+                <div>
+                    <!-- Quick log buttons will go here -->
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no active habits today.</p>
+{% endif %}
+
+<hr>
+
+<h3>Your Streaks</h3>
+
+{% if streaks %}
+    <ul class="list-group">
+        {% for habit, streak in streaks.items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ habit.name }}</span>
+                <span>{{ streak }} day streak</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No streak data yet.</p>
+{% endif %}
+
+{% endblock %}

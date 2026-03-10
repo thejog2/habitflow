@@ -15,5 +15,5 @@ urlpatterns = [
     path("habit/<int:habit_pk>/log/add/", views.CreateLogEntryView.as_view(), name="log_add"),
     path("log/<int:pk>/edit/", views.UpdateLogEntryView.as_view(), name="log_edit"),
     path("log/<int:pk>/delete/", views.DeleteLogEntryView.as_view(), name="log_delete"),
-
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
