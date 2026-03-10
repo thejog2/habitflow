@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Habit, LogEntry
 from .forms import HabitForm, LogEntryForm
+from .utils import has_logged_today, get_today_log, calculate_streak
 
 
 def home(request):
@@ -199,9 +200,18 @@ class DeleteLogEntryView(LoginRequiredMixin, DeleteView):
 def dashboard(request):
     today = timezone.now().date()
 
-    # We will fill these in shortly
+    habits = Habit.objects.filter(user=request.user, is_active=True)
+
     habits_today = []
     streaks = {}
+
+    for habit in habits:
+        habits_today.append({
+            "habit": habit,
+            "logged_today": has_logged_today(habit),
+        })
+
+        streaks[habit] = calculate_streak(habit)
 
     context = {
         "today": today,
