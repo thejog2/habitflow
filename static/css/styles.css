@@ -436,6 +436,20 @@ h1, h2, h3, h4, h5 {
     font-family: var(--font-heading);
 }
 
+/* Forgot Password Link */
+.forgot-password-link {
+    font-size: 0.9rem;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+
 /* ---------------------------------------------------------
    16. Reset Page Specific Styles
    --------------------------------------------------------- */
