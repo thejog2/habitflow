@@ -14,48 +14,6 @@ from .forms import HabitForm, LogEntryForm
 from .utils import has_logged_today, get_today_log, calculate_streak
 
 
-def home(request):
-    return render(request, 'home.html')
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, 'Your account has been created and you are now logged in.')
-            return redirect('home')
-        else:
-            messages.error(request, 'Please correct the errors below.')
-    else:
-        form = UserCreationForm()
-        
-    return render(request, 'register.html', {'form': form})
-
-
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
-            messages.success(request, 'You are now logged in.')
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'login.html', {'form': form})
-
-
-def logout_view(request):
-    logout(request)
-    messages.success(request, 'You have been logged out.')
-    return redirect('home')
-
-
 class HabitListView(LoginRequiredMixin, ListView):
     model = Habit
     template_name = "habit_list.html"
