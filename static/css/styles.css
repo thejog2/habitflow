@@ -71,6 +71,48 @@ h1, h2, h3, h4, h5 {
     color: var(--accent) !important;
 }
 
+.habitflow-navbar {
+    background: var(--neutral-lightest);
+    box-shadow: var(--shadow-soft);
+    padding: 0.75rem 0;
+}
+
+.habitflow-navbar .navbar-brand {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neutral-dark);
+}
+
+.habitflow-navbar .nav-link {
+    font-family: var(--font-body);
+    color: var(--neutral-dark);
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    transition: color 0.2s ease;
+}
+
+.habitflow-navbar .nav-link:hover,
+.habitflow-navbar .nav-link:focus {
+    color: var(--primary);
+}
+
+.user-dropdown {
+    font-weight: 600;
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    font-family: var(--font-body);
+}
+
+.dropdown-item:hover {
+    background-color: var(--neutral-light);
+}
+
 /* ---------------------------------------------------------
    5. Buttons (Bootstrap Overrides)
    --------------------------------------------------------- */
