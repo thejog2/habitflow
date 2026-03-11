@@ -2,27 +2,75 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    {% if view.object %}
-        Edit Log Entry
-    {% else %}
-        Add Log Entry
-    {% endif %}
-</h2>
+<div class="container-fluid">
 
-<form method="post" class="mb-4">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
 
-    <button type="submit" class="btn btn-primary">Save</button>
+            <!-- Page Title -->
+            <h1 class="page-title mb-4">
+                {% if view.object %}
+                    Edit Log Entry
+                {% else %}
+                    Add Log Entry
+                {% endif %}
+            </h1>
 
-    {% if view.object %}
-        <!-- Cancel button for editing -->
-        <a href="{% url 'habit_detail' view.object.habit.pk %}" class="btn btn-secondary">Cancel</a>
-    {% else %}
-        <!-- Cancel button for creating -->
-        <a href="{% url 'habit_detail' view.habit.pk %}" class="btn btn-secondary">Cancel</a>
-    {% endif %}
-</form>
+            <!-- Form Card -->
+            <div class="card logentry-form-card p-4">
+
+                <form method="post" class="logentry-form">
+                    {% csrf_token %}
+
+                    <div class="form-styled">
+
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ field.errors }}
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-2">
+                        Save
+                    </button>
+
+                </form>
+
+                <!-- Cancel Button -->
+                {% if view.object %}
+                    <a href="{% url 'habit_detail' view.object.habit.pk %}"
+                       class="btn btn-secondary w-100 mt-3">
+                        Cancel
+                    </a>
+                {% else %}
+                    <a href="{% url 'habit_detail' view.habit.pk %}"
+                       class="btn btn-secondary w-100 mt-3">
+                        Cancel
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}
+
