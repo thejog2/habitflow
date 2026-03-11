@@ -456,6 +456,97 @@ This completes the core functionality of the habit‑tracking experience and set
 
 ---
 
+## Day 7 — UI/UX Polish, Branding, Accessibility & Documentation
+
+Day 7 was all about elevating HabitFlow from a functional application into a polished, user‑friendly product. With the core features now in place, today’s focus shifted toward visual refinement, accessibility improvements, responsive behaviour, and strengthening the project documentation. These enhancements bring HabitFlow much closer to a professional, deploy‑ready standard.
+
+---
+
+### UI/UX Improvements
+
+A major part of today’s work involved refining the overall look and feel of the platform. The goal was to create a cohesive, modern interface that feels intuitive and pleasant to use.
+
+Key improvements include:
+
+- A complete pass over the form components, ensuring consistent spacing, alignment, and visual hierarchy.
+- Consolidation of the CSS into a clean, maintainable structure while preserving all premium input styling.
+- Improved card layouts for habit creation, log entries, authentication pages, and dashboard elements.
+- Enhanced hover, focus, and active states to improve clarity and user feedback.
+- A more polished colour system using the indigo primary palette and warm amber accents.
+- Subtle shadow and depth adjustments to create a more tactile, friendly UI.
+
+These refinements significantly improve the user experience and give HabitFlow a more professional, cohesive identity.
+
+---
+
+### Responsive Layout Enhancements
+
+HabitFlow now adapts smoothly across all major device sizes. Today’s work included:
+
+- Ensuring the navbar collapses cleanly on mobile and tablet.
+- Adjusting spacing, padding, and typography for smaller screens.
+- Improving form layouts so they remain readable and comfortable on mobile.
+- Verifying that dashboard elements stack logically and remain easy to interact with on touch devices.
+
+The application now feels natural whether viewed on a phone, tablet, or desktop.
+
+---
+
+### Branding & Favicon Integration
+
+To strengthen HabitFlow’s identity, a custom favicon was created and integrated into the project.  
+This small but important detail helps the platform feel like a polished, real product.
+
+The favicon features a clean indigo checkbox with a tick — a simple, recognisable symbol that reflects the core purpose of the app: building consistent habits.
+
+All favicon assets were added to the static directory, and the appropriate `<head>` tags were included in the base template.
+
+---
+
+### Accessibility Improvements
+
+Accessibility was a major focus today, ensuring HabitFlow is usable by as many people as possible.
+
+Key improvements include:
+
+- Replacing non‑semantic elements with proper HTML5 structure.
+- Adding ARIA labels to interactive components where needed.
+- Ensuring all form fields have associated labels.
+- Verifying colour contrast ratios meet WCAG AA standards.
+- Running Lighthouse and WAVE accessibility audits and resolving flagged issues.
+- Improving keyboard navigation and focus visibility.
+
+HabitFlow now scores significantly higher in accessibility testing and follows best practices for inclusive design.
+
+---
+
+### README & Documentation Updates
+
+A substantial portion of today was dedicated to strengthening the README, transforming it into a clear, professional, assessor‑friendly document.
+
+New sections added include:
+
+- **UX Design Overview** — covering strategy, scope, structure, skeleton, and surface design decisions.
+- **Wireframes** — placeholders added to document early design thinking.
+- **Colour Palette & Typography** — outlining the visual identity of HabitFlow.
+- **Accessibility Notes** — including Lighthouse/WAVE results and explanations of improvements.
+- **Responsive Design Approach** — detailing breakpoints and layout decisions.
+
+These additions help communicate the design rationale behind HabitFlow and demonstrate a thoughtful, user‑centred development process.
+
+---
+
+### Agile Progress
+
+All UI/UX tasks were moved to **Done** on the Agile board, reflecting the significant progress made today.  
+Documentation tasks were also updated, and Day 7 notes were added to maintain a clear development timeline.
+
+---
+
+### Summary
+
+Day 7 focused on refinement, polish, and professionalism. With improved UI/UX, responsive behaviour, accessibility compliance, branding, and documentation, HabitFlow now feels like a cohesive, user‑friendly product. These enhancements set the stage for the final development tasks and pre‑deployment checks in the coming days.
+
 ### Overview
 Today focused on implementing full CRUD (Create, Read, Update, Delete) functionality for user habits. All habit operations are now fully functional, secure, and restricted to authenticated users only. This ensures that each user can manage their own habits without accessing or modifying data belonging to others.
 
