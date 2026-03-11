@@ -2,61 +2,117 @@
 
 {% block content %}
 
-<h2 class="mb-4">Habit Details</h2>
+<div class="container-fluid">
 
-<div class="mb-4">
-    <h1>{{ habit.name }}</h1>
+    <!-- Page Title -->
+    <h1 class="mb-4" style="font-family: var(--font-heading);">
+        Habit Details
+    </h1>
 
-    <p><strong>Type:</strong> {{ habit.habit_type }}</p>
-    <p><strong>Description:</strong> {{ habit.description }}</p>
-    <p><strong>Status:</strong> {{ habit.is_active|yesno:"Active,Archived" }}</p>
-</div>
+    <!-- Habit Info Card -->
+    <div class="card shadow-soft rounded-soft mb-4 p-4">
 
-<hr>
+        <h2 class="mb-3" style="font-family: var(--font-heading);">
+            {{ habit.name }}
+        </h2>
 
-<div class="mb-4">
-    <a href="{% url 'habit_edit' habit.pk %}" class="btn btn-primary">Edit Habit</a>
-    <a href="{% url 'habit_delete' habit.pk %}" class="btn btn-danger">Delete Habit</a>
-    <a href="{% url 'habit_list' %}" class="btn btn-secondary">Back to Habits</a>
-</div>
+        <p style="font-family: var(--font-body);">
+            <strong>Type:</strong>
+            {{ habit.habit_type|title }}
+        </p>
 
-<hr>
+        <p style="font-family: var(--font-body);">
+            <strong>Description:</strong>
+            {{ habit.description|default:"No description provided." }}
+        </p>
 
-<h3 class="mt-4">
-    Log Entries ({{ logs.count }})
-</h3>
+        <p style="font-family: var(--font-body);">
+            <strong>Status:</strong>
+            <span class="badge {% if habit.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                {% if habit.is_active %}Active{% else %}Archived{% endif %}
+            </span>
+        </p>
 
-<!-- Date Filter Form -->
-<form method="get" class="mb-3 d-flex align-items-end gap-2">
-    <div>
-        <label for="date" class="form-label">Filter by date:</label>
-        <input type="date" id="date" name="date" class="form-control"
-               value="{{ filter_date }}">
+        <!-- Action Buttons -->
+        <div class="mt-4 d-flex flex-wrap gap-2">
+            <a href="{% url 'habit_edit' habit.pk %}" class="btn btn-primary">Edit Habit</a>
+            <a href="{% url 'habit_delete' habit.pk %}" class="btn btn-danger">Delete Habit</a>
+            <a href="{% url 'habit_list' %}" class="btn btn-secondary">Back to Habits</a>
+        </div>
+
     </div>
-    <button type="submit" class="btn btn-primary">Apply</button>
 
-    {% if filter_date %}
-        <a href="{% url 'habit_detail' habit.pk %}" class="btn btn-secondary">Clear</a>
-    {% endif %}
-</form>
+    <!-- Log Entries Section -->
+    <div class="card shadow-soft rounded-soft p-4">
 
-<a href="{% url 'log_add' habit.pk %}" class="btn btn-success mb-3">Add Log Entry</a>
+        <h3 class="mb-3" style="font-family: var(--font-heading);">
+            Log Entries ({{ logs.count }})
+        </h3>
 
-<ul class="list-group mb-4">
-    {% for log in logs %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <strong>{{ log.date }}</strong><br>
-                {{ log.notes|default:"No notes" }}
+        <!-- Date Filter Form -->
+        <form method="get" class="row g-3 mb-3">
+
+            <div class="col-12 col-md-4">
+                <label for="date" class="form-label" style="font-family: var(--font-body);">
+                    Filter by date:
+                </label>
+                <input type="date" id="date" name="date" class="form-control"
+                       value="{{ filter_date }}">
             </div>
-            <div>
-                <a href="{% url 'log_edit' log.pk %}" class="btn btn-sm btn-primary">Edit</a>
-                <a href="{% url 'log_delete' log.pk %}" class="btn btn-sm btn-danger">Delete</a>
+
+            <div class="col-12 col-md-8 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-primary">Apply</button>
+
+                {% if filter_date %}
+                <a href="{% url 'habit_detail' habit.pk %}" class="btn btn-secondary">
+                    Clear
+                </a>
+                {% endif %}
             </div>
-        </li>
-    {% empty %}
-        <p>No logs found for this date.</p>
-    {% endfor %}
-</ul>
+
+        </form>
+
+        <!-- Add Log Entry Button -->
+        <a href="{% url 'log_add' habit.pk %}" class="btn btn-success mb-3">
+            + Add Log Entry
+        </a>
+
+        <!-- Log List -->
+        {% if logs %}
+        <ul class="list-group">
+
+            {% for log in logs %}
+            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+
+                <div>
+                    <strong style="font-family: var(--font-heading);">
+                        {{ log.date }}
+                    </strong><br>
+                    <span style="font-family: var(--font-body);">
+                        {{ log.notes|default:"No notes" }}
+                    </span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="{% url 'log_edit' log.pk %}" class="btn btn-sm btn-outline-primary">
+                        Edit
+                    </a>
+                    <a href="{% url 'log_delete' log.pk %}" class="btn btn-sm btn-outline-danger">
+                        Delete
+                    </a>
+                </div>
+
+            </li>
+            {% endfor %}
+
+        </ul>
+
+        {% else %}
+        <p class="text-muted mt-2">No logs found for this date.</p>
+        {% endif %}
+
+    </div>
+
+</div>
 
 {% endblock %}

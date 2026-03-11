@@ -1,13 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Delete Habit</h1>
 
-<p>Are you sure you want to delete the habit "<strong>{{ habit.name }}</strong>"?</p>
+<div class="container-fluid">
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Yes, delete</button>
-    <a href="{% url 'habit_detail' habit.pk %}" class="btn btn-secondary">Cancel</a>
-</form>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- Page Title -->
+            <h1 class="page-title mb-4">
+                Delete Habit
+            </h1>
+
+            <!-- Delete Confirmation Card -->
+            <div class="card delete-card p-4">
+
+                <p class="delete-text">
+                    Are you sure you want to delete the habit
+                    "<strong>{{ habit.name }}</strong>"?
+                </p>
+
+                <form method="post" class="d-flex flex-wrap gap-2 mt-3">
+                    {% csrf_token %}
+
+                    <button type="submit" class="btn btn-danger flex-grow-1">
+                        Yes, delete
+                    </button>
+
+                    <a href="{% url 'habit_detail' habit.pk %}"
+                       class="btn btn-secondary flex-grow-1">
+                        Cancel
+                    </a>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

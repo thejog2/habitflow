@@ -173,3 +173,78 @@ h1, h2, h3, h4, h5 {
 .shadow-medium {
     box-shadow: var(--shadow-medium);
 }
+
+/* ---------------------------------------------------------
+   10. Habit Form Specific Styles
+   --------------------------------------------------------- */
+
+/* Card styling for the form */
+.habit-form-card {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    background: var(--neutral-lightest);
+}
+
+/* Form container */
+.habit-form {
+    font-family: var(--font-body);
+}
+
+/* Style all form inputs */
+.form-styled input[type="text"],
+.form-styled input[type="date"],
+.form-styled input[type="number"],
+.form-styled select,
+.form-styled textarea {
+    width: 100%;
+    padding: 10px 12px;
+
+    /* FIX: Make inputs visually distinct from the card */
+    background-color: #ffffff; /* pure white for contrast */
+    border: 1px solid var(--neutral-mid); /* darker border for definition */
+
+    border-radius: 8px;
+    font-family: var(--font-body);
+}
+
+/* Textarea height */
+.form-styled textarea {
+    min-height: 120px;
+}
+
+/* Checkbox styling */
+.form-styled input[type="checkbox"] {
+    transform: scale(1.3);
+    margin-right: 8px;
+}
+
+/* Page title */
+.page-title {
+    font-family: var(--font-heading);
+}
+
+/* Label styling */
+.form-label {
+    font-family: var(--font-heading);
+}
+
+/* ---------------------------------------------------------
+   11. Habit Form Specific Styles
+   --------------------------------------------------------- */
+
+.delete-card {
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    background: var(--neutral-lightest);
+}
+
+.delete-text {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--neutral-dark);
+}
+
+.page-title {
+    font-family: var(--font-heading);
+}
