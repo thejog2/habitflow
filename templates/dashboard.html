@@ -2,60 +2,116 @@
 
 {% block content %}
 
-<h1 class="mb-4">Dashboard</h1>
+<div class="container-fluid">
 
-<p>Today: {{ today }}</p>
+    <!-- Page Title -->
+    <h1 class="mb-4" style="font-family: var(--font-heading);">
+        Dashboard
+    </h1>
 
-<hr>
+    <p class="text-muted" style="font-family: var(--font-body);">
+        Today: {{ today }}
+    </p>
 
-<h3>Your Habits for Today</h3>
+    <!-- Responsive Grid -->
+    <div class="row g-4 mt-3">
 
-{% if habits_today %}
-<ul class="list-group mb-4">
-    {% for item in habits_today %}
-    {% with habit=item.habit %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-            <strong>{{ habit.name }}</strong><br>
-            <small>{{ habit.habit_type|title }} habit</small>
-        </div>
+        <!-- LEFT COLUMN: Habits for Today -->
+        <div class="col-12 col-lg-7">
 
-        <div>
-            {% if item.logged_today %}
-            <span class="badge bg-success">Completed Today</span>
-            {% else %}
-            <a href="{% url 'quick_log' item.habit.pk %}" class="btn btn-sm btn-primary">
-                {% if item.habit.habit_type == "positive" %}
-                Mark as Done
+            <div class="card shadow-soft rounded-soft p-3">
+                <h3 class="mb-3" style="font-family: var(--font-heading);">
+                    Your Habits for Today
+                </h3>
+
+                {% if habits_today %}
+                <ul class="list-group list-group-flush">
+
+                    {% for item in habits_today %}
+                    {% with habit=item.habit %}
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+
+                        <!-- Habit Info -->
+                        <div>
+                            <strong style="font-family: var(--font-heading); font-size: 1.1rem;">
+                                {{ habit.name }}
+                            </strong><br>
+                            <small class="text-muted" style="font-family: var(--font-body);">
+                                {{ habit.habit_type|title }} habit
+                            </small>
+                        </div>
+
+                        <!-- Action / Status -->
+                        <div>
+                            {% if item.logged_today %}
+                            <span class="badge bg-success rounded-pill px-3 py-2">
+                                Completed Today
+                            </span>
+                            {% else %}
+                            <a href="{% url 'quick_log' item.habit.pk %}"
+                               class="btn btn-sm {% if habit.habit_type == 'positive' %}btn-primary{% else %}btn-accent{% endif %} px-3">
+                                {% if habit.habit_type == "positive" %}
+                                Mark as Done
+                                {% else %}
+                                Mark as Avoided
+                                {% endif %}
+                            </a>
+                            {% endif %}
+                        </div>
+
+                    </li>
+
+                    {% endwith %}
+                    {% endfor %}
+
+                </ul>
+
                 {% else %}
-                Mark as Avoided
+                <p class="text-muted mt-2">You have no active habits today.</p>
                 {% endif %}
-            </a>
-            {% endif %}
+            </div>
+
         </div>
-    </li>
-    {% endwith %}
-    {% endfor %}
-</ul>
-{% else %}
-<p>You have no active habits today.</p>
-{% endif %}
 
-<hr class="mb-4">
+        <!-- RIGHT COLUMN: Streaks -->
+        <div class="col-12 col-lg-5">
 
-<h3>Your Streaks</h3>
+            <div class="card shadow-soft rounded-soft p-3">
+                <h3 class="mb-3" style="font-family: var(--font-heading);">
+                    Your Streaks
+                </h3>
 
-{% if streaks %}
-<ul class="list-group">
-    {% for habit, streak in streaks.items %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>{{ habit.name }}</span>
-        <span>{{ streak }} day streak</span>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No streak data yet.</p>
-{% endif %}
+                {% if streaks %}
+                <ul class="list-group list-group-flush">
+
+                    {% for habit, streak in streaks.items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+
+                        <span style="font-family: var(--font-body);">
+                            {{ habit.name }}
+                        </span>
+
+                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2"
+                              style="font-family: var(--font-heading); font-size: 0.9rem;">
+                            🔥 {{ streak }}‑day streak
+                        </span>
+
+                    </li>
+                    {% endfor %}
+
+                </ul>
+
+                {% else %}
+                <p class="text-muted mt-2">No streak data yet.</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
+

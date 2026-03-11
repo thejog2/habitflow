@@ -1,8 +1,77 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block messages %}
+<!-- Disable default messages block from base.html on this page -->
+{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1 class="display-4">Welcome to HabitFlow</h1>
-    <p class="lead">Your habit tracking journey starts here.</p>
+
+<!-- REMOVE CONTAINER PADDING FOR THIS PAGE -->
+<style>
+    main.container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Messages overlay */
+    .home-messages {
+        position: absolute;
+        top: 70px;
+        /* sits just below navbar */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 600px;
+        z-index: 20;
+        padding: 0 1rem;
+    }
+</style>
+
+<!-- MESSAGES (overlay on top of hero image) -->
+{% if messages %}
+<div class="home-messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-soft" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
 </div>
+{% endif %}
+
+<!-- HERO SECTION -->
+<section class="hero-section position-relative" style="margin: 0; padding: 0;">
+
+    <!-- Background Image -->
+    <div class="hero-bg" style="
+            background-image: url('{% static 'images/ocean_waves.jpg' %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+         ">
+    </div>
+
+    <!-- Overlay -->
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.45);">
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content position-absolute top-50 start-50 translate-middle text-center text-white px-3">
+
+        <h1 class="display-4 fw-bold" style="font-family: var(--font-heading); color: white;">
+            Welcome to HabitFlow
+        </h1>
+
+        <p class="lead mt-3" style="font-family: var(--font-body); color: white;">
+            Your habit tracking journey starts here.
+        </p>
+
+    </div>
+
+</section>
+
 {% endblock %}
