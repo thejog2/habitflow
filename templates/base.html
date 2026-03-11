@@ -16,7 +16,14 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
     <!-- Favicon (placeholder) -->
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    {% load static %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
+
 </head>
 
 <body>
@@ -45,12 +52,20 @@
 
                         <!-- Dashboard -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+                                href="{% url 'dashboard' %}">
+                                Dashboard
+                            </a>
                         </li>
 
-                        <!-- My Habits -->
+                        <!-- My Habits (active for list, detail, edit, delete) -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'habit_list' %}">My Habits</a>
+                            <a class="nav-link 
+                            {% if request.resolver_match.url_name in 'habit_list habit_detail habit_edit habit_delete' %}
+                                active
+                            {% endif %}" href="{% url 'habit_list' %}">
+                                My Habits
+                            </a>
                         </li>
 
                         <!-- Admin Dashboard -->
@@ -80,7 +95,9 @@
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'logout' %}">
+                                    <a class="dropdown-item 
+                                    {% if request.resolver_match.url_name == 'logout' %}active{% endif %}"
+                                        href="{% url 'logout' %}">
                                         Logout
                                     </a>
                                 </li>
@@ -92,12 +109,18 @@
 
                         <!-- Login -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+                                href="{% url 'login' %}">
+                                Login
+                            </a>
                         </li>
 
                         <!-- Register -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
+                                href="{% url 'register' %}">
+                                Register
+                            </a>
                         </li>
 
                         {% endif %}
@@ -108,6 +131,7 @@
             </div>
         </nav>
     </header>
+
 
 
     <!-- MAIN CONTENT -->
