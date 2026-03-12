@@ -295,20 +295,55 @@ h1, h2, h3, h4, h5 {
 .shadow-soft { box-shadow: var(--shadow-soft); }
 .shadow-medium { box-shadow: var(--shadow-medium); }
 
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+
 /* ---------------------------------------------------------
    13. Media Queries
    --------------------------------------------------------- */
 @media (max-width: 991px) {
-    .navbar-nav .nav-item { margin: 6px 0; }
-    .navbar-nav .dropdown-menu { border-radius: 8px; padding: 0.5rem 0; }
-    .dropdown-item { padding: 0.75rem 1.25rem; }
-    .navbar-nav .nav-item + .nav-item { border-top: 1px solid rgba(0,0,0,0.05); }
+    .navbar-nav .nav-item { 
+        margin: 6px 0; 
+    }
+
+    .navbar-nav .dropdown-menu { 
+        border-radius: 8px; 
+        padding: 0.5rem 0; 
+    }
+
+    .dropdown-item { 
+        padding: 0.75rem 1.25rem; 
+    }
+
+    .navbar-nav .nav-item + .nav-item { 
+        border-top: 1px solid rgba(0,0,0,0.05); 
+    }
 
     .navbar-collapse {
         background: var(--neutral-white);
         border-radius: 0 0 12px 12px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         padding: 1rem;
+    }
+
+    /* ⭐ Mobile/tablet dropdown text fix */
+    .navbar-collapse .nav-link {
+        color: var(--neutral-darkest) !important;
+        margin: 0.5rem 0;
+    }
+
+    .navbar-collapse .nav-link.active {
+        color: var(--primary) !important;
+        border-bottom: none;
+        font-weight: 600;
+    }
+
+    .navbar-collapse .dropdown-item {
+        color: var(--neutral-darkest) !important;
     }
 }
 

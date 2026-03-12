@@ -7,4 +7,5 @@ urlpatterns = [
     path('', home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('', include('tracker.urls')),
+    path('admin-dashboard/', include('adminpanel.urls')),
 ]
