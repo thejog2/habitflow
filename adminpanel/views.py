@@ -2,21 +2,21 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.shortcuts import render
-from habits.models import Habit, HabitLog
+from tracker.models import Habit, LogEntry
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_dashboard(request):
     # System-level stats
     total_users = User.objects.count()
     total_habits = Habit.objects.count()
-    total_logs = HabitLog.objects.count()
+    total_logs = LogEntry.objects.count()
 
     avg_habits = round(total_habits / total_users, 2) if total_users > 0 else 0
 
     # User-level stats
     users = User.objects.annotate(
-        habit_count=Count('habit', distinct=True),
-        log_count=Count('habitlog', distinct=True)
+        habit_count=Count('habits', distinct=True),
+        log_count=Count('logentry', distinct=True)
     ).order_by('username')
 
     context = {
@@ -28,3 +28,4 @@ def admin_dashboard(request):
     }
 
     return render(request, "admin_dashboard.html", context)
+

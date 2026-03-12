@@ -547,8 +547,101 @@ Documentation tasks were also updated, and Day 7 notes were added to maintain a 
 
 Day 7 focused on refinement, polish, and professionalism. With improved UI/UX, responsive behaviour, accessibility compliance, branding, and documentation, HabitFlow now feels like a cohesive, user‑friendly product. These enhancements set the stage for the final development tasks and pre‑deployment checks in the coming days.
 
-### Overview
-Today focused on implementing full CRUD (Create, Read, Update, Delete) functionality for user habits. All habit operations are now fully functional, secure, and restricted to authenticated users only. This ensures that each user can manage their own habits without accessing or modifying data belonging to others.
+---
+
+# 🗓️ Day 8 — Admin Dashboard, Navbar Fixes & Structural Enhancements
+**Date:** 12 March 2026  
+**Focus:** Role‑based access, UI fixes, and internal tooling
+
+---
+
+## 🔧 1. Mobile & Tablet Navbar Fix
+
+Resolved a visibility issue where the collapsed Bootstrap navbar appeared empty on mobile/tablet.  
+The cause was identified as white text being rendered on a white background inside the collapsed menu.
+
+A targeted media‑query override was added to ensure:
+
+- Dark text inside the collapsed menu  
+- Correct active‑link styling  
+- No impact on desktop layout  
+- Full compatibility with HabitFlow’s branding  
+
+This restored full mobile/tablet navigation functionality.
+
+---
+
+## 🛠️ 2. New Admin‑Only Dashboard (Superuser Access)
+
+A custom, branded **Admin Dashboard** was created to provide superusers with a clear overview of platform activity.  
+This dashboard is separate from Django’s built‑in admin panel and is designed to be simple, secure, and assessor‑friendly.
+
+### Purpose
+- Demonstrate role‑based access control  
+- Provide system‑level insights  
+- Offer a clean, user‑friendly internal tool  
+- Avoid exposing Django’s backend  
+- Showcase multi‑model aggregation and data presentation  
+
+### Access
+Only authenticated **superusers** can access the dashboard.  
+Route:  
+/admin-dashboard/
+
+
+### Features Implemented
+- **Summary cards** showing:
+  - Total Users  
+  - Total Habits  
+  - Total Log Entries  
+  - Average Habits per User  
+
+- **User Overview Table** including:
+  - Username  
+  - Email  
+  - Date Joined  
+  - Last Login  
+  - Habit Count  
+  - Log Count  
+
+- **Read‑only design** to keep the dashboard safe and simple  
+- **Full HabitFlow branding** for a consistent user experience  
+
+### Technical Notes
+- A new Django app `adminpanel` was created to keep admin logic cleanly separated  
+- URL routing added via `admin-dashboard/`  
+- Template placed in the global `templates/` directory to match project structure  
+- Reverse relation names (`habits`, `logentry`) aligned with the existing `tracker` app models  
+- Import paths corrected to match actual model names (`Habit`, `LogEntry`)  
+
+The dashboard is now fully operational and integrated into the navbar for admin users.
+
+---
+
+## 📁 3. Project Structure Improvements
+
+To maintain a clean architecture:
+
+- A dedicated `adminpanel` app was introduced  
+- Admin templates remain in the global `templates/` directory  
+- All admin‑related logic is now isolated from user authentication and habit tracking apps  
+
+This keeps the project scalable, organised, and assessor‑friendly.
+
+---
+
+## ✨ Summary of Day 8
+
+Today delivered a mix of UI polish and backend architecture:
+
+- Fixed mobile/tablet navbar visibility issues  
+- Built a complete, secure Admin Dashboard  
+- Added system‑level analytics and user activity insights  
+- Improved project structure with a dedicated admin app  
+- Ensured all features align with HabitFlow’s branding and UX  
+
+This sets the foundation for future enhancements such as streak analytics, habit trends, and richer admin insights.
+
 
 
 ### Habit CRUD Features
