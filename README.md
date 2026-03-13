@@ -1,6 +1,6 @@
 # 📘 HabitFlow — Habit Tracking Web Application
 
-HabitFlow is a full‑stack Django web application designed to help users build, track, and maintain both positive and negative habits through daily logging, streaks, and progress insights. The project follows Agile methodology and is developed iteratively over a 7‑day sprint.
+HabitFlow is a full‑stack Django web application designed to help users build, track, and maintain both positive and negative habits through daily logging, streaks, and progress insights. The project follows Agile methodology and is developed iteratively over a multi‑day sprint.
 
 ---
 
@@ -8,14 +8,18 @@ HabitFlow is a full‑stack Django web application designed to help users build,
 
 1. Project Overview  
 2. Agile Planning  
-3. User Stories  
+3. User Stories & Acceptance Criteria  
 4. Features  
-5. Data Model  
-6. Project Setup  
-7. Development Log  
-8. Documentation  
-9. Tech Stack  
-10. Security Notes  
+5. Wireframes  
+6. Data Model & ERD  
+7. Project Setup  
+8. Development Log  
+9. Screenshots (Placeholder)  
+10. Testing (Placeholder)  
+11. Deployment (Placeholder)  
+12. AI Usage Reflection (Placeholder)  
+13. Tech Stack  
+14. Security Notes  
 
 ---
 
@@ -28,6 +32,8 @@ HabitFlow enables users to:
 - Log completions or avoidance  
 - View streaks and history  
 - Maintain both positive and negative habits  
+- Access a personalised dashboard  
+- (Admins only) View platform‑wide analytics  
 
 The application is built using Django, HTML, CSS, JavaScript, and Bootstrap.
 
@@ -47,34 +53,38 @@ Work progresses through:
 - In Review  
 - Done  
 
+Daily development logs (below) document progress and decisions.
+
 ---
 
-# 🧑‍💻 User Stories
+# 🧑‍💻 User Stories & Acceptance Criteria
 
 ### Authentication
-- US01: Register an account  
-- US02: Log in  
-- US03: Log out  
+- **US01:** Register an account  
+- **US02:** Log in  
+- **US03:** Log out  
 
 ### Habit Management
-- US04: Create habits  
-- US05: Edit habits  
-- US06: Delete habits  
+- **US04:** Create habits  
+- **US05:** Edit habits  
+- **US06:** Delete habits  
 
 ### Daily Logging
-- US07: Log daily progress  
-- US08: View log history  
+- **US07:** Log daily progress  
+- **US08:** View log history  
 
 ### Dashboard
-- US09: View today’s habits  
-- US10: View streaks  
+- **US09:** View today’s habits  
+- **US10:** View streaks  
 
 ### UX & Accessibility
-- US11: Responsive design  
-- US12: Accessibility support  
+- **US11:** Responsive design  
+- **US12:** Accessibility support  
 
 ### Deployment
-- US13: Deploy the project  
+- **US13:** Deploy the project  
+
+(Full acceptance criteria will be added during the testing phase.)
 
 ---
 
@@ -92,11 +102,17 @@ Users can create positive or negative habits.
 ### ✔ Daily Logging  
 Users can log completion or avoidance for each habit.
 
+### ✔ Dashboard  
+Displays today’s habits, streaks, and quick‑log buttons.
+
 ### ✔ Admin Tools  
-Admin users see additional navigation options.
+Superusers can access a custom Admin Dashboard with platform‑wide analytics.
 
 ### ✔ Responsive UI  
 Bootstrap‑powered layout with custom CSS.
+
+### ✔ Accessibility  
+Semantic HTML, ARIA labels, WCAG‑compliant contrast, and keyboard‑friendly navigation.
 
 ---
 
@@ -321,328 +337,146 @@ Key fields:
 # 📅 Development Log
 
 ## Day 1 — Project Foundation
-- Created Django project and core app  
-- Set up templates and static directories  
-- Implemented base template with Bootstrap  
-- Added homepage  
-- Initial migrations completed  
+**Focus:** Establishing the core structure of the Django project.
+
+### Key Work Completed
+- Created the Django project and initial `tracker` app  
+- Set up global templates and static directories  
+- Implemented the base template with Bootstrap  
+- Added the homepage and navigation structure  
+- Ran initial migrations and confirmed project bootstrapping  
+
+### Outcome
+A clean, well‑structured foundation was established, ensuring all future development could build on a stable and organised project layout.
+
+---
 
 ## Day 2 — Authentication & Profile System
-- Registration, login, logout  
-- Bootstrap‑styled forms  
-- Django messages  
-- Dynamic navbar  
-- Profile model + auto‑create signal  
-- Admin‑only navigation  
-- Profile moved to `accounts` for cleaner architecture  
+**Focus:** Implementing user authentication and extending user data.
+
+### Key Work Completed
+- Added registration, login, and logout functionality  
+- Styled authentication forms using Bootstrap  
+- Integrated Django messages for user feedback  
+- Added dynamic navbar elements based on authentication state  
+- Created a Profile model with automatic creation via signals  
+- Moved profile logic into a dedicated `accounts` app for cleaner architecture  
+- Added admin‑only navigation options  
+
+### Outcome
+Users can now securely register and authenticate, and the system supports role‑based behaviour through the Profile model.
+
+---
 
 ## Day 3 — Database Schema & Models
-- Habit model  
-- LogEntry model  
-- Unique constraints  
-- Admin registration  
-- ERD diagram  
-- README updates  
+**Focus:** Designing and implementing the core data models.
+
+### Key Work Completed
+- Implemented the `Habit` model with unique constraints  
+- Implemented the `LogEntry` model with per‑day uniqueness  
+- Registered both models in Django admin  
+- Created the ERD diagram to document relationships  
+- Updated the README with schema details  
+
+### Outcome
+The project now has a complete, well‑structured data model ready for CRUD functionality and dashboard logic.
+
+---
 
 ## Day 4 — Habit CRUD Functionality
-- Full CRUD for habits  
-- Access control via `get_queryset()`  
-- Success messages  
-- Habit Detail page implemented  
+**Focus:** Allowing users to manage their habits.
+
+### Key Work Completed
+- Implemented full CRUD operations for habits  
+- Added access control using `get_queryset()` to ensure users only manage their own habits  
+- Added success messages for create/update/delete actions  
+- Built the Habit Detail page to display habit information  
+
+### Outcome
+Users can now create, view, edit, and delete habits, forming the backbone of the habit‑tracking workflow.
+
+---
 
 ## Day 5 — Logging System
-- LogEntry CRUD (create, edit, delete)  
-- Integrated logs into Habit Detail page  
-- Date filtering  
-- Validation for future dates + duplicates  
-- Polished templates  
-- README updated  
+**Focus:** Enabling users to record daily progress.
+
+### Key Work Completed
+- Implemented CRUD operations for LogEntry  
+- Integrated logs into the Habit Detail page  
+- Added validation for duplicate logs and future dates  
+- Improved template structure and styling  
+- Updated README with logging documentation  
+
+### Outcome
+Users can now record daily progress for each habit, forming the basis for streaks and dashboard insights.
+
+---
 
 ## Day 6 — Dashboard & Streak Logic
+**Focus:** Transforming HabitFlow into a daily‑driven habit‑tracking experience.
 
-Today focused on transforming HabitFlow from a collection of CRUD pages into a true habit‑tracking experience. The new **Dashboard** provides users with a clear, actionable view of their daily habits, along with streak tracking and quick‑log functionality. This marks a major milestone in the project, as users can now interact with their habits in a meaningful, daily‑driven way.
+### Key Work Completed
+- Built the Dashboard view and template  
+- Added quick‑log buttons for one‑click daily tracking  
+- Implemented streak calculation logic for both positive and negative habits  
+- Added helper functions (`has_logged_today`, `get_today_log`, `calculate_streak`)  
+- Updated navbar to include Dashboard access  
+- Ensured all dashboard features require authentication  
 
----
-
-### Dashboard Overview
-
-The Dashboard is now the central hub for logged‑in users. It displays:
-
-- Today’s date  
-- All active habits for the user  
-- A “Completed Today” badge for habits already logged  
-- Quick‑log buttons for one‑click daily tracking  
-- Streak counters showing how many consecutive days each habit has been completed  
-
-This page is designed for speed and clarity — users can log their progress in seconds without navigating through multiple pages.
-
----
-
-### Quick‑Log Functionality
-
-To streamline daily tracking, each habit now includes a one‑click action:
-
-- **Positive habits:** “Mark as Done”  
-- **Negative habits:** “Mark as Avoided”  
-
-When clicked, HabitFlow:
-
-1. Creates a LogEntry for today  
-2. Prevents duplicate logs  
-3. Redirects back to the dashboard  
-4. Displays a success message  
-
-This feature dramatically improves usability and encourages consistent habit tracking.
-
----
-
-### Streak Calculation Logic
-
-Streaks show how many consecutive days a habit has been completed (or avoided, for negative habits).  
-The logic works the same for both habit types — it simply checks whether a log exists for each day going backwards from today.
-
-**How streaks work:**
-
-- If a user logged the habit today → streak starts at 1  
-- If they also logged it yesterday → streak becomes 2  
-- If there’s a gap → streak resets  
-- No logs → streak is 0  
-
-This gives users a clear sense of momentum and progress.
-
----
-
-### Streak Calculation Pseudocode
-
-```
-streak = 0
-current_date = today
-
-while log exists for habit on current_date:
-    streak += 1
-    current_date = current_date - 1 day
-
-return streak
-```
-
-This simple loop ensures streaks are accurate, predictable, and easy to maintain.
-
----
-
-### Technical Notes
-
-- Added `utils.py` with helper functions:
-  - `has_logged_today(habit)`
-  - `get_today_log(habit)`
-  - `calculate_streak(habit)`
-- Added `dashboard` view and template  
-- Added `quick_log` view and URL  
-- Updated navbar with a Dashboard link  
-- Ensured all dashboard logic is restricted to authenticated users  
-
----
-
-### Summary
-
-Day 6 introduced HabitFlow’s most important user‑facing feature: the Dashboard.  
-Users can now:
-
-- See today’s habits  
-- Log progress instantly  
-- Track streaks  
-- Build consistency  
-
-This completes the core functionality of the habit‑tracking experience and sets the stage for final polish and documentation on Day 7.
+### Outcome
+The Dashboard became the central user experience, enabling fast daily logging and providing meaningful streak insights.
 
 ---
 
 ## Day 7 — UI/UX Polish, Branding, Accessibility & Documentation
+**Focus:** Refining the interface and improving accessibility.
 
-Day 7 was all about elevating HabitFlow from a functional application into a polished, user‑friendly product. With the core features now in place, today’s focus shifted toward visual refinement, accessibility improvements, responsive behaviour, and strengthening the project documentation. These enhancements bring HabitFlow much closer to a professional, deploy‑ready standard.
+### Key Work Completed
+- Performed a full UI/UX pass across all pages  
+- Consolidated and cleaned CSS for maintainability  
+- Improved form layouts, spacing, and visual hierarchy  
+- Enhanced responsive behaviour across mobile and tablet  
+- Added a custom favicon and strengthened branding  
+- Improved accessibility (ARIA labels, semantic HTML, WCAG contrast)  
+- Ran Lighthouse and WAVE audits and resolved issues  
+- Expanded README with UX design, wireframes, palette, and accessibility notes  
 
----
-
-### UI/UX Improvements
-
-A major part of today’s work involved refining the overall look and feel of the platform. The goal was to create a cohesive, modern interface that feels intuitive and pleasant to use.
-
-Key improvements include:
-
-- A complete pass over the form components, ensuring consistent spacing, alignment, and visual hierarchy.
-- Consolidation of the CSS into a clean, maintainable structure while preserving all premium input styling.
-- Improved card layouts for habit creation, log entries, authentication pages, and dashboard elements.
-- Enhanced hover, focus, and active states to improve clarity and user feedback.
-- A more polished colour system using the indigo primary palette and warm amber accents.
-- Subtle shadow and depth adjustments to create a more tactile, friendly UI.
-
-These refinements significantly improve the user experience and give HabitFlow a more professional, cohesive identity.
+### Outcome
+HabitFlow now feels cohesive, polished, and accessible, with a strong visual identity and improved documentation.
 
 ---
 
-### Responsive Layout Enhancements
+## Day 8 — Admin Dashboard, Navbar Fixes & Structural Enhancements
+**Focus:** Adding internal admin tools and fixing mobile navigation.
 
-HabitFlow now adapts smoothly across all major device sizes. Today’s work included:
-
-- Ensuring the navbar collapses cleanly on mobile and tablet.
-- Adjusting spacing, padding, and typography for smaller screens.
-- Improving form layouts so they remain readable and comfortable on mobile.
-- Verifying that dashboard elements stack logically and remain easy to interact with on touch devices.
-
-The application now feels natural whether viewed on a phone, tablet, or desktop.
-
----
-
-### Branding & Favicon Integration
-
-To strengthen HabitFlow’s identity, a custom favicon was created and integrated into the project.  
-This small but important detail helps the platform feel like a polished, real product.
-
-The favicon features a clean indigo checkbox with a tick — a simple, recognisable symbol that reflects the core purpose of the app: building consistent habits.
-
-All favicon assets were added to the static directory, and the appropriate `<head>` tags were included in the base template.
-
----
-
-### Accessibility Improvements
-
-Accessibility was a major focus today, ensuring HabitFlow is usable by as many people as possible.
-
-Key improvements include:
-
-- Replacing non‑semantic elements with proper HTML5 structure.
-- Adding ARIA labels to interactive components where needed.
-- Ensuring all form fields have associated labels.
-- Verifying colour contrast ratios meet WCAG AA standards.
-- Running Lighthouse and WAVE accessibility audits and resolving flagged issues.
-- Improving keyboard navigation and focus visibility.
-
-HabitFlow now scores significantly higher in accessibility testing and follows best practices for inclusive design.
-
----
-
-### README & Documentation Updates
-
-A substantial portion of today was dedicated to strengthening the README, transforming it into a clear, professional, assessor‑friendly document.
-
-New sections added include:
-
-- **UX Design Overview** — covering strategy, scope, structure, skeleton, and surface design decisions.
-- **Wireframes** — placeholders added to document early design thinking.
-- **Colour Palette & Typography** — outlining the visual identity of HabitFlow.
-- **Accessibility Notes** — including Lighthouse/WAVE results and explanations of improvements.
-- **Responsive Design Approach** — detailing breakpoints and layout decisions.
-
-These additions help communicate the design rationale behind HabitFlow and demonstrate a thoughtful, user‑centred development process.
-
----
-
-### Agile Progress
-
-All UI/UX tasks were moved to **Done** on the Agile board, reflecting the significant progress made today.  
-Documentation tasks were also updated, and Day 7 notes were added to maintain a clear development timeline.
-
----
-
-### Summary
-
-Day 7 focused on refinement, polish, and professionalism. With improved UI/UX, responsive behaviour, accessibility compliance, branding, and documentation, HabitFlow now feels like a cohesive, user‑friendly product. These enhancements set the stage for the final development tasks and pre‑deployment checks in the coming days.
-
----
-
-# 🗓️ Day 8 — Admin Dashboard, Navbar Fixes & Structural Enhancements
-**Date:** 12 March 2026  
-**Focus:** Role‑based access, UI fixes, and internal tooling
-
----
-
-## 🔧 1. Mobile & Tablet Navbar Fix
-
-Resolved a visibility issue where the collapsed Bootstrap navbar appeared empty on mobile/tablet.  
-The cause was identified as white text being rendered on a white background inside the collapsed menu.
-
-A targeted media‑query override was added to ensure:
-
-- Dark text inside the collapsed menu  
-- Correct active‑link styling  
-- No impact on desktop layout  
-- Full compatibility with HabitFlow’s branding  
-
-This restored full mobile/tablet navigation functionality.
-
----
-
-## 🛠️ 2. New Admin‑Only Dashboard (Superuser Access)
-
-A custom, branded **Admin Dashboard** was created to provide superusers with a clear overview of platform activity.  
-This dashboard is separate from Django’s built‑in admin panel and is designed to be simple, secure, and assessor‑friendly.
-
-### Purpose
-- Demonstrate role‑based access control  
-- Provide system‑level insights  
-- Offer a clean, user‑friendly internal tool  
-- Avoid exposing Django’s backend  
-- Showcase multi‑model aggregation and data presentation  
-
-### Access
-Only authenticated **superusers** can access the dashboard.  
-Route:  
-/admin-dashboard/
-
-
-### Features Implemented
-- **Summary cards** showing:
-  - Total Users  
-  - Total Habits  
-  - Total Log Entries  
-  - Average Habits per User  
-
-- **User Overview Table** including:
-  - Username  
-  - Email  
-  - Date Joined  
-  - Last Login  
-  - Habit Count  
-  - Log Count  
-
-- **Read‑only design** to keep the dashboard safe and simple  
-- **Full HabitFlow branding** for a consistent user experience  
-
-### Technical Notes
-- A new Django app `adminpanel` was created to keep admin logic cleanly separated  
-- URL routing added via `admin-dashboard/`  
-- Template placed in the global `templates/` directory to match project structure  
-- Reverse relation names (`habits`, `logentry`) aligned with the existing `tracker` app models  
-- Import paths corrected to match actual model names (`Habit`, `LogEntry`)  
-
-The dashboard is now fully operational and integrated into the navbar for admin users.
-
----
-
-## 📁 3. Project Structure Improvements
-
-To maintain a clean architecture:
-
-- A dedicated `adminpanel` app was introduced  
-- Admin templates remain in the global `templates/` directory  
-- All admin‑related logic is now isolated from user authentication and habit tracking apps  
-
-This keeps the project scalable, organised, and assessor‑friendly.
-
----
-
-## ✨ Summary of Day 8
-
-Today delivered a mix of UI polish and backend architecture:
-
+### Key Work Completed
 - Fixed mobile/tablet navbar visibility issues  
-- Built a complete, secure Admin Dashboard  
-- Added system‑level analytics and user activity insights  
-- Improved project structure with a dedicated admin app  
-- Ensured all features align with HabitFlow’s branding and UX  
+- Created a dedicated `adminpanel` app  
+- Built a custom Admin Dashboard for superusers  
+- Added system‑level analytics (users, habits, logs, averages)  
+- Added a user overview table with activity metrics  
+- Ensured admin‑only access using decorators  
+- Integrated the dashboard into the navbar  
+- Improved project structure by isolating admin logic  
 
-This sets the foundation for future enhancements such as streak analytics, habit trends, and richer admin insights.
+### Outcome
+HabitFlow now includes a secure, branded Admin Dashboard that provides assessors and superusers with clear insights into platform activity.
 
+---
 
+## Day 9 — Documentation, Screenshots & Project Board Updates
+**Focus:** Strengthening documentation and preparing for testing week.
+
+### Key Work Completed
+- Expanded README with user stories, wireframes, ERD, features, and future enhancements  
+- Added placeholders for screenshots, testing, deployment, and AI reflection  
+- Updated GitHub Project Board and moved documentation tasks to **Done**  
+- Prepared structure for upcoming testing week  
+
+### Outcome
+Documentation is now comprehensive and structured, setting the stage for final testing, deployment, and assessor‑ready presentation.
+
+---
 
 ### Habit CRUD Features
 
