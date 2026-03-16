@@ -20,6 +20,7 @@ HabitFlow is a full‑stack Django web application designed to help users build,
 12. AI Usage Reflection (Placeholder)  
 13. Tech Stack  
 14. Security Notes  
+15. Testing
 
 ---
 
@@ -530,3 +531,107 @@ Before deployment, it will be moved to environment variables using:
 - `env.py` locally  
 - Heroku config vars in production  
 
+---
+
+# 🧪 Testing
+
+## Testing Strategy
+
+HabitFlow’s testing approach combines **manual testing**, **automated Django tests**, and **ongoing exploratory testing** during development. The goal is to ensure that all core features behave as expected, edge cases are handled gracefully, and permissions and validation are robust.
+
+The testing strategy includes:
+
+- **Manual Testing**
+  - End‑to‑end testing of user journeys (registration → habit creation → logging → dashboard)
+  - Feature‑based testing (authentication, habits, logs, dashboard, admin dashboard)
+  - Cross‑browser and device checks for responsiveness and layout
+  - Negative testing (invalid input, missing fields, unauthorised access)
+
+- **Automated Testing**
+  - Model tests for `Habit`, `LogEntry`, and `Profile`
+  - View tests for key pages (habit list, habit detail, dashboard, admin dashboard)
+  - Permission and redirect tests (e.g. unauthenticated access, non‑admin access to admin dashboard)
+  - Form validation tests where appropriate
+
+- **Regression Testing**
+  - Re‑running key manual tests after bug fixes or refactors
+  - Verifying that new changes do not break existing functionality
+
+- **Documentation‑Driven Testing**
+  - Ensuring that all user stories and acceptance criteria are covered by at least one test (manual or automated)
+  - Recording test cases and results in the README for assessor transparency
+
+The following sections document the manual test cases, automated tests, and (later) screenshots of test runs.
+
+## ✔ Manual Test Cases
+
+The following manual tests were carried out to validate all core features of HabitFlow.  
+Each test includes the scenario, steps, expected result, and a placeholder for actual results.
+
+---
+
+### 🔐 Authentication Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| AUTH‑01 | Register a new user | Go to Register → Fill form → Submit | User account created, redirected to login, success message shown |✔ |
+| AUTH‑02 | Register with missing fields | Submit empty form | Validation errors displayed, no account created |✔ |
+| AUTH‑03 | Login with valid credentials | Enter correct username/password | User logged in and redirected to dashboard |✔ |
+| AUTH‑04 | Login with invalid credentials | Enter incorrect details | Error message shown, user not logged in |✔ |
+| AUTH‑05 | Logout | Click Logout | User logged out and redirected to homepage |✔ |
+
+---
+
+### 📋 Habit CRUD Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| HAB‑01 | Create a habit | Go to Add Habit → Fill form → Submit | Habit created and visible in Habit List |✔ |
+| HAB‑02 | Create habit with missing fields | Submit empty form | Validation errors shown |✔ |
+| HAB‑03 | Edit a habit | Open habit → Edit → Save | Habit updates successfully |✔ |
+| HAB‑04 | Delete a habit | Open habit → Delete → Confirm | Habit removed from list |✔ |
+| HAB‑05 | Prevent duplicate habit names | Create habit with same name | Validation error shown |✔ |
+
+---
+
+### 📝 LogEntry Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| LOG‑01 | Add a log entry | Open habit → Add Log → Submit | Log entry created and visible in history |✔ |
+| LOG‑02 | Prevent duplicate logs | Add log for same date twice | Validation error shown |✔ |
+| LOG‑03 | Edit a log entry | Edit existing log → Save | Log updates successfully |✔ |
+| LOG‑04 | Delete a log entry | Delete log → Confirm | Log removed from history |✔ |
+| LOG‑05 | Prevent future dates | Select future date → Submit | Validation error shown |✔ |
+
+---
+
+### 📊 Dashboard & Streak Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| DASH‑01 | View today’s habits | Login → Dashboard | All active habits displayed |✔ |
+| DASH‑02 | Quick‑log positive habit | Click “Mark as Done” | Log created, streak updates, button disabled |✔ |
+| DASH‑03 | Quick‑log negative habit | Click “Mark as Avoided” | Log created, streak updates |✔ |
+| DASH‑04 | Streak calculation | Log habit for consecutive days | Streak increases correctly |✔ |
+| DASH‑05 | Prevent duplicate quick‑logs | Click quick‑log twice | Second attempt blocked |✔ |
+
+---
+
+### 🛡 Permission & Access Control Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| PERM‑01 | Access habit not owned | Manually enter another user’s habit URL | 403/redirect to dashboard |✔ |
+| PERM‑02 | Access log not owned | Enter another user’s log URL | 403/redirect |✔ |
+| PERM‑03 | Access dashboard unauthenticated | Visit `/dashboard/` logged out | Redirect to login |✔ |
+| PERM‑04 | Access admin dashboard as normal user | Visit `/admin-dashboard/` | Access denied |✔ |
+| PERM‑05 | Access admin dashboard as superuser | Login as admin → Visit page | Dashboard loads successfully |✔ |
+
+---
+
+### 📱 Responsive Layout Tests
+
+| Test ID | Scenario | Steps | Expected Result | Actual Result |
+|--------|----------|--------|-----------------|----------------|
+| RESP‑01 | Mobile navbar | View site on mobile | Navbar collapses and links | ✔ |
