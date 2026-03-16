@@ -635,3 +635,59 @@ Each test includes the scenario, steps, expected result, and a placeholder for a
 | Test ID | Scenario | Steps | Expected Result | Actual Result |
 |--------|----------|--------|-----------------|----------------|
 | RESP‑01 | Mobile navbar | View site on mobile | Navbar collapses and links | ✔ |
+
+---
+
+## 🧪 Automated Testing
+
+HabitFlow includes a suite of automated Django tests covering models, views, URL routing, and permission logic. These tests ensure that core functionality behaves consistently and that key features remain stable as the project evolves.
+
+### ✔ Test Coverage
+The automated tests cover:
+
+- **Models:** Habit, LogEntry, Profile  
+- **Views:** Habit list, habit detail, dashboard, admin dashboard  
+- **Permissions:** User access restrictions, admin‑only views  
+- **URL Resolution:** Ensuring named URLs map to the correct views  
+
+### 📸 Automated Test Run
+The screenshot below shows the full automated test suite running successfully, with all tests passing:
+
+![Automated Tests](docs/autotestcomplete.png)
+
+---
+
+## 🔐 Permission Testing
+
+Permission checks are a critical part of HabitFlow’s security model. The following tests were performed to ensure users can only access their own data and that administrative features remain restricted.
+
+### 👤 Normal User Access Attempt
+A standard user attempting to access the admin dashboard is correctly redirected or denied access.
+
+![AdminNormal](docs/admindashboardoff.png)
+
+### 🛡 Admin Access
+A superuser can successfully access the admin dashboard and view analytics.
+
+![AdminOn](docs/admindashboardon.png)
+
+---
+
+## 📱 Responsive Design Testing
+
+HabitFlow was tested across multiple device sizes using browser developer tools to ensure a smooth and consistent experience on all screen types.
+
+### 📱 Mobile View
+The layout collapses cleanly, navigation remains accessible, and dashboard cards stack vertically.
+
+![MobileView](docs/dashboardmobile.png)
+
+### 📊 Tablet View
+Content adjusts to medium‑sized screens with balanced spacing and readable typography.
+
+![TabletView](docs/dashboardtablet.png)
+
+### 🖥 Desktop View
+Full layout displays as intended with optimal spacing, card layout, and navigation.
+
+![LaptopView](docs/dashboardlaptop.png)

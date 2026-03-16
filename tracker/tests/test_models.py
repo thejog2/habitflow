@@ -26,7 +26,7 @@ class HabitModelTests(TestCase):
             description="Stay hydrated",
             habit_type="positive"
         )
-        self.assertEqual(str(habit), "Drink Water")
+        self.assertEqual(str(habit), "Drink Water (habituser)")
 
     def test_unique_habit_name_per_user(self):
         Habit.objects.create(
