@@ -479,6 +479,22 @@ Documentation is now comprehensive and structured, setting the stage for final t
 
 ---
 
+### Day 10 — UI Refinements, Accessibility Checks & Structural Polish
+**Focus:** Smoothing out the interface and tightening project consistency.
+
+**Key Work Completed**
+- Completed an accessibility pass across remaining templates
+- Refined spacing, alignment, and visual consistency across pages
+- Improved responsive behaviour for navbar and dashboard
+- Cleaned up CSS classes and removed minor duplication
+- Adjusted template structure for clarity and maintainability
+- Made small UI tweaks to improve readability and user flow
+
+**Outcome**
+HabitFlow now feels more cohesive and polished, with improved accessibility, cleaner structure, and a smoother overall user experience ahead of testing and deployment.
+
+---
+
 ### Habit CRUD Features
 
 #### ✔ Create Habits
