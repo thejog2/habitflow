@@ -21,6 +21,10 @@ HabitFlow is a full‑stack Django web application designed to help users build,
 13. Tech Stack  
 14. Security Notes  
 15. Testing
+16. Deployment
+17. AI Usage
+18. Summary
+19. Credits
 
 ---
 
@@ -495,6 +499,24 @@ HabitFlow now feels more cohesive and polished, with improved accessibility, cle
 
 ---
 
+### Day 11 — Deployment, Debugging & Production Readiness
+
+Today was focused entirely on deploying HabitFlow to Heroku and ensuring the application was fully production‑ready. This involved a series of real‑world debugging steps that strengthened the reliability and stability of the project.
+
+**Key Achievements**
+- Successfully provisioned a Heroku Postgres database after resolving plan‑naming changes in Heroku’s new tier system.
+- Fixed a local Git corruption issue caused by OneDrive file locking, restoring a clean and functional repository.
+- Connected the Heroku app to GitHub for streamlined deployments.
+- Configured essential environment variables on Heroku, including `SECRET_KEY`, `DEBUG`, and `CLOUDINARY_URL`.
+- Resolved a 400 Bad Request error by updating `ALLOWED_HOSTS` to include the dynamically generated Heroku domain.
+- Fixed missing static files by correcting `STATIC_URL`, reordering `INSTALLED_APPS`, enabling Whitenoise, and ensuring collectstatic ran successfully.
+- Verified that all CSS, templates, authentication flows, and tracker features worked correctly in production.
+
+**Outcome**
+HabitFlow is now fully deployed, styled, and functional on Heroku with a live Postgres database, Cloudinary media storage, and production‑grade static file handling. This marks the project’s transition from development to a stable, production‑ready application.
+
+---
+
 ### Habit CRUD Features
 
 #### ✔ Create Habits
@@ -707,3 +729,121 @@ Content adjusts to medium‑sized screens with balanced spacing and readable typ
 Full layout displays as intended with optimal spacing, card layout, and navigation.
 
 ![LaptopView](docs/dashboardlaptop.png)
+
+
+---
+
+## 🟦 Deployment
+
+HabitFlow was deployed to Heroku using a GitHub‑connected workflow, with Heroku automatically building and releasing the application on each push to the `main` branch. The deployment process involved several key configuration steps to ensure the Django application ran correctly in a production environment.
+
+### **Heroku Setup**
+1. Created a new Heroku app and connected it to the project’s GitHub repository.  
+2. Provisioned a Postgres database using Heroku’s updated plan structure (`essential-0`).  
+3. Verified that Heroku automatically added the `DATABASE_URL` environment variable.
+
+### **Environment Variables**
+The following config vars were added through the Heroku dashboard:
+
+| Key | Purpose |
+|-----|---------|
+| `SECRET_KEY` | Required for Django security in production |
+| `DEBUG=False` | Ensures production‑safe behaviour |
+| `CLOUDINARY_URL` | Enables Cloudinary media storage |
+| `DATABASE_URL` | Automatically provided by Heroku Postgres |
+
+These values replace the local `env.py` file and are accessed via `os.environ`.
+
+### **Fixing the 400 Bad Request Error**
+On first deployment, the app returned a **400 Bad Request** due to Django rejecting the Heroku domain.  
+This was resolved by updating:
+
+```python
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "habitflow-<generated-id>.herokuapp.com"
+]
+```
+
+### **Static Files & CSS Fixes**
+
+On first deployment, the application loaded without any CSS. This was caused by Heroku not collecting or serving static files correctly. Several configuration issues were identified and resolved:
+
+- Corrected `STATIC_URL` to `'/static/'` (the missing leading slash caused broken asset paths)
+- Added `STATIC_ROOT = BASE_DIR / 'staticfiles'` so Heroku knows where to collect static assets
+- Ensured `STATICFILES_DIRS` correctly pointed to the local `static/` directory
+- Enabled Whitenoise for serving static files in production by adding:
+
+```python
+'whitenoise.middleware.WhiteNoiseMiddleware',
+```
+- Reordered `INSTALLED_APPS` so that Djangos built-in apps load before cloundinary
+- Removed `DISABLE_COLLECTSTATIC` if present in Heroku config vars
+- Triggered a fresh Heroku build to run `collectstatic` successfully
+
+After applying these fixes, Heroku generated and served all static assets correctly, restoring full styling and layout.
+
+---
+
+## 🤖 AI Assistance & Workflow Reflection
+
+AI tools played a supportive but strategic role throughout the development of HabitFlow. They were used to accelerate problem‑solving, improve code quality, and enhance the overall user experience, while all key architectural and design decisions remained developer‑led.
+
+###  AI-Assisted Code Creation
+AI was used selectively to generate boilerplate code and speed up repetitive tasks, such as creating Django views, forms, and template structures. This allowed more time to focus on the project’s logic, UX, and feature design. AI suggestions were always reviewed, adapted, and integrated only when they aligned with the project’s objectives and coding standards.
+
+###  AI-Assisted Debugging
+AI tools were particularly effective during debugging. They helped identify issues such as:
+- Git repository corruption caused by OneDrive file locking  
+- Django configuration errors (e.g., `ALLOWED_HOSTS`, static file handling)  
+- Deployment issues on Heroku, including missing config vars and static file collection  
+AI provided clear explanations of root causes, enabling faster resolution and reinforcing understanding of Django’s production behaviour.
+
+###  AI-Assisted Optimisation
+AI contributed to performance and UX improvements by suggesting:
+- More efficient template structures  
+- Cleaner CSS organisation  
+- Improved middleware ordering for static file performance  
+- Best practices for Whitenoise and Cloudinary integration  
+These optimisations helped ensure the deployed application was fast, stable, and visually consistent.
+
+###  AI-Assisted Automated Testing
+GitHub Copilot was used to generate initial Django unit tests for key features within the `tracker` and `accounts` apps. These tests were then refined manually to ensure accuracy, meaningful assertions, and proper coverage of authentication flows, model behaviour, and view responses. Copilot accelerated the creation of test scaffolding while maintaining developer control over test logic.
+
+###  Overall Reflection on AI in the Development Workflow
+AI tools significantly improved efficiency throughout the project. They reduced time spent on repetitive tasks, provided rapid debugging insights, and supported best‑practice implementation during deployment. Rather than replacing decision‑making, AI acted as a collaborative assistant—enhancing productivity, reinforcing understanding, and enabling a smoother development experience from start to finish.
+
+---
+
+## 🏁 Final Project Summary
+
+HabitFlow represents the culmination of a full‑stack development journey, combining Django, PostgreSQL, Cloudinary, and Heroku into a polished, production‑ready application. The project delivers a clean and intuitive habit‑tracking experience, supported by secure authentication, responsive design, and a fully deployed cloud infrastructure.
+
+Throughout development, the focus remained on creating a tool that is both functional and user‑centred. The application enables users to build positive routines, track progress, and manage their habits through a simple and engaging interface. Behind the scenes, the project demonstrates strong technical foundations, including structured models, clear view logic, reusable templates, and robust testing.
+
+The deployment process added real‑world complexity, requiring debugging, environment configuration, and performance optimisation. Overcoming these challenges strengthened the reliability of the final product and provided valuable experience in managing production environments.
+
+HabitFlow is now live, stable, and ready for users — a complete demonstration of full‑stack capability, problem‑solving, and end‑to‑end project delivery.
+
+---
+
+## 🙏 Credits & Acknowledgements
+
+- **Hero Image**  
+  The hero image used on the homepage was sourced from [Pexels.com](https://www.pexels.com), a free stock photography platform offering high‑quality images for personal and commercial use.
+
+- **Cloudinary**  
+  Used for secure and scalable media storage throughout the project.
+
+- **Heroku**  
+  Provided hosting, deployment pipelines, and the managed PostgreSQL database.
+
+- **Django & Python Communities**  
+  Documentation, tutorials, and community discussions were invaluable throughout development.
+
+- **AI Assistance**  
+  AI tools were used to support code generation, debugging, optimisation, and testing, as outlined in the AI Reflection section.
+
+- **Friends, family, and peers**  
+  For feedback, encouragement, and support during the development process.
