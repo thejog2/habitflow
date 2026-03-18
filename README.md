@@ -561,13 +561,26 @@ Stored in `/docs`:
 
 ---
 
-# 🔐 Security Notes
+## 🔐 Security Notes
 
-During development, the Django `SECRET_KEY` is stored in `settings.py`.  
-Before deployment, it will be moved to environment variables using:
+HabitFlow follows best practices for separating development and production settings. No sensitive values are committed to the repository.
 
-- `env.py` locally  
-- Heroku config vars in production  
+### SECRET_KEY
+During development, the Django `SECRET_KEY` is loaded from `env.py` (excluded from version control).  
+In production, the key is securely stored in Heroku config vars and accessed via `os.environ`.
+
+### DEBUG Mode
+DEBUG is controlled entirely through environment variables:
+
+```python
+DEBUG = os.environ.get("DEBUG") == "True"
+```
+
+- In production, Heroku sets DEBUG=False, ensuring secure behaviour and preventing debug information from being exposed.
+- In development, DEBUG can be enabled locally via env.py without affecting the deployed application.
+- No debug settings are hard‑coded in settings.py, preventing accidental commits of DEBUG=True.
+
+This approach ensures the application always runs with DEBUG=False in production while maintaining a safe and flexible development workflow.
 
 ---
 
